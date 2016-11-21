@@ -20,7 +20,7 @@ CREATE TABLE restaurants (
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name varchar(50) NOT NULL,
 	location varchar(50) NOT NULL,
-	cuisine_type varchar(50) NOT NULL,
+	cuisine_type enum ("Japanese", "Thai", "Chinese", "Italian", "French", "American", "Korean") NOT NULL,
 	res_type enum ("cafe", "meal")
 ) ENGINE = InnoDB;
 
