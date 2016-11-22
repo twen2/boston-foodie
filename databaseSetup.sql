@@ -19,10 +19,13 @@ CREATE TABLE users (
 CREATE TABLE restaurants (
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name varchar(50) NOT NULL,
-	location enum ("Cambridge", "Wellesley", "Newton", "Natick", "Boston") NOT NULL,
-	cuisine_type enum ("Japanese", "Thai", "Chinese", "Italian", "French", "American", "Korean") NOT NULL,
+	location varchar(50) NOT NULL,
+	cuisine_type varchar(50) NOT NULL,
 	res_type enum ("cafe", "meal")
 ) ENGINE = InnoDB;
+
+load data infile 'restaurants.csv'
+ into table restaurants fields terminated by ','lines terminated by '\n';
 
 -- dishes table
 CREATE TABLE dishes (
@@ -33,6 +36,10 @@ CREATE TABLE dishes (
 	FOREIGN KEY (res_id) REFERENCES restaurants(id) ON DELETE restrict
 ) ENGINE = InnoDB;
 
+
+load data infile 'dishes.csv'
+ into table dishes fields terminated by ','lines terminated by '\n';
+ 
 -- likes table
 CREATE TABLE likes (
 	user_id int NOT NULL,

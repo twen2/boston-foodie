@@ -1,0 +1,90 @@
+ body{
+ 	background-color: mistyrose;
+ }
+
+ #pageTop{
+   	text-align: center;
+   	font-family:Cabin Sketch;
+   }
+
+ #welcome{
+    font-weight:bold;
+    font-size: 60px;
+   }
+ #navi{
+	margin: 0 auto;
+	text-align: center;
+	width: 80%;
+
+}
+
+ ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	margin: 0 auto;
+    width: 80%;
+    background-color: #f1f1f1;
+}
+/*
+li {
+	float:left;
+}
+*/
+    li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+    li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+    li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+#mainName {
+	font-family:Cabin Sketch;
+	font-size: 30px;
+
+}
+
+#pageIntro{
+	margin: 0 auto;
+	text-align: center;
+	width: 800px;
+
+}
+
+#addform{
+	margin: 0 auto;
+	width: 400px;
+}
+
+legend{
+		text-align: center;
+}
+
+#generalSearch{
+	background-color: lavender;
+	text-indent: 10px;
+	margin: 0 auto;
+	width: 400px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+#dishSearch{
+	text-align: center;
+	background-color: lavender;
+	margin: 0 auto;
+	width: 400px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

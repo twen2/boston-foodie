@@ -1,15 +1,26 @@
+<!doctype html>
 <html>
 <head>
-<title>Boston Foodie - General Search Page</title>
-<style></style>
+	<meta charset='utf-8'>
+    <meta name=author content="Sharon Zhang">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Amatic+SC|Pacifico|Quicksand" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <title>Boston Foodie - Home Page</title>
 </head>
-
 <body>
+
 <div id="pageTop">
-<h1 class="pageTitle">General Search Page</h1>
+<h1 id="welcome">Boston Foodie!</h1>
+<h2>Explore the restaurants and satisfy your taste</h2>
+</div>
+
+<div id="pageIntro">
+    <span id = "mainName">General Search</span>
+    <br><p><i>Search for an ideal restaurant based on location and type</i>
 </div>
 
 <form id="generalSearch">
+	<!-- should import from database later -->
 <p>Please select a location:
 	<select name="location">
 		<option value="Unspecified">Unspecified</option>
@@ -39,7 +50,14 @@
 		<option value="Korean">Korean</option>
 	</select>
 </p>
-<input type="submit" name="submit" value="Search">
+<p><input type="submit" name="submit" value="Search">
 </form>
+<br>
+<div style = "text-align:center">
+	<ul>
+	 <li><a href="homepage.html"><span id = "mainName">Back to Home Page</span>
+	 </ul>
+</div>
+
 </body>
 </html>

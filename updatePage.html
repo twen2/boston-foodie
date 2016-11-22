@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+    <meta name=author content="Sharon Zhang">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Amatic+SC|Pacifico|Quicksand" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <title>Boston Foodie - Home Page</title>
+</head>
+
+<body>
+<div id="pageTop">
+	<h1 id="welcome">Boston Foodie!</h1>
+	<h2>Explore the restaurants and satisfy your taste</h2>
+</div>
+
+<div id="pageIntro">
+    <span id = "mainName">Welcome to Contribute</span>
+    <br><p><i>Update the database through adding, liking and commenting</i>
+    <!-- {display} -->
+</div>
+
+<form id= "addRes" method=POST action="">
+<!-- <form method=POST action="update.cgi"> -->
+  <fieldset id= "addform">
+    <legend><b>New Restaurant</b></legend>
+    <table>
+      <tr>
+        <td><label for="resName">Name:</label></td>
+        <td><input type="text" name="resName" id="resName"></td>
+      </tr>
+      <!-- input field of the name of the actor -->
+      <tr>
+         <td><label for="loca">Location:</label></td>
+        <td><input type="text" name="loca" id="loca"></td>
+      </tr>
+      <!-- input field of the birthdate of the actor -->
+      <tr>
+         <td><label for="cuisine">Cusine:</label></td>
+         <td><input type="text" name="cuisine" id="cuisine"></td>
+      </tr>
+      <tr>
+         <td><label for="type">Restaurant Type:</label></td>
+         <td><select name = "cuisine" id="cuisine">
+         	 <option value="meal">Meal</option>
+         	 <option value="cafe">Cafe</option>
+         </td>
+      </tr>
+    </table>
+      <input type="submit" name = "addRes" value="Add Restaurant">
+  </fieldset><br>
+</form>
+
+<form id= "addDish" method=POST action="">
+    <fieldset  id= "addform">
+    <legend><b>New Dish</b></legend>
+    <table>
+      <tr>
+        <td><label for="dishName">Dish Name:</label></td>
+        <td><input type="text" name="dishName" id="dishName"></td>
+      </tr>
+      <!-- input field of the name of the actor -->
+      <tr>
+         <td><label for="res">Restaurant:</label></td>
+        <td><input type="text" name="res" id="res"></td>
+    </tr>
+    </table>
+      <input type="submit" name = "addDishes" value="Add Dish">
+  </fieldset>
+</form>
+<br>
+<div style = "text-align:center">
+	<ul>
+	    <li><a href="generalS.html"><span id = "mainName">Go to General Search</span>
+
+        <li><a href="dishS.html"><span id = "mainName">Go to Dishes Search</span>
+    </ul>
+
+</div>
+</body>
+</html>
