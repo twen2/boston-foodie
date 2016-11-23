@@ -2,6 +2,7 @@
 -- Wendy Wen (twen2) and Sharon Zhang (wzhang2)
 
 use wzhang2_db;
+
 DROP TABLE if exists likes;
 DROP TABLE if exists dishes;
 DROP TABLE if exists comments;
@@ -24,7 +25,7 @@ CREATE TABLE restaurants (
 	res_type enum ("cafe", "meal")
 ) ENGINE = InnoDB;
 
-load data infile 'restaurants.csv'
+load data LOCAL infile 'restaurants.csv'
  into table restaurants fields terminated by ','lines terminated by '\n';
 
 -- dishes table
@@ -37,7 +38,7 @@ CREATE TABLE dishes (
 ) ENGINE = InnoDB;
 
 
-load data infile 'dishes.csv'
+load data LOCAL infile 'dishes.csv'
  into table dishes fields terminated by ','lines terminated by '\n';
  
 -- likes table

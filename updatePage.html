@@ -20,6 +20,7 @@
     <!-- {display} -->
 </div>
 
+<div id = "display">
 <form id= "addRes" method=POST action="">
 <!-- <form method=POST action="update.cgi"> -->
   <fieldset id= "addform">
@@ -42,6 +43,7 @@
       <tr>
          <td><label for="type">Restaurant Type:</label></td>
          <td><select name = "cuisine" id="cuisine">
+         	 <option value="both">Both</option>
          	 <option value="meal">Meal</option>
          	 <option value="cafe">Cafe</option>
          </td>
@@ -68,12 +70,11 @@
       <input type="submit" name = "addDishes" value="Add Dish">
   </fieldset>
 </form>
+</div>
 <br>
 <div style = "text-align:center">
 	<ul>
-	    <li><a href="generalS.html"><span id = "mainName">Go to General Search</span>
-
-        <li><a href="dishS.html"><span id = "mainName">Go to Dishes Search</span>
+	    <li><a href="homepageLogin.html"><span id = "mainName">Back to Homepage</span>
     </ul>
 
 </div>
