@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -19,7 +20,7 @@
     <br><p><i>Search for an ideal restaurant based on location and type</i>
 </div>
 
-<form id="generalSearch">
+<form id = "generalSearch" style = "text-indent: 10px">
 	<!-- should import from database later -->
 <p>Please select a location:
 	<select name="location">
@@ -52,10 +53,14 @@
 </p>
 <p><input type="submit" name="submit" value="Search">
 </form>
-<br>
+
+{{result}}
+<!-- this should be a for loop -->
+
 <div style = "text-align:center">
+	<br>
 	<ul>
-	 <li><a href="homepage.html"><span id = "mainName">Back to Home Page</span>
+	 <li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
 	 </ul>
 </div>
 

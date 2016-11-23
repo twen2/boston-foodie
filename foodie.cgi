@@ -4,7 +4,6 @@ import cgitb; cgitb.enable()
 import cgi_utils_sda
 import dbconn2
 import MySQLdb
-import hwk5
 
 
 
@@ -14,7 +13,7 @@ def main():
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
-    
+
     form_data = cgi.FieldStorage()
     tmpl = cgi_utils_sda.file_contents('homepage.html')
 
