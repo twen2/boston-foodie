@@ -29,6 +29,7 @@ def insertRes(conn, form_data):
     # executes the given query that inserts the provided data into the table
     curs.execute("""INSERT INTO restaurants(id, name, location, cuisine_type, res_type) VALUES (NULL, %s, %s, %s, %s)""",
                 (name, loca, cuisine, resType))
+    return "The restaurant " + name + " is successfully inserted."
     # executed the given query that returns the entry that matches the new insertion
     # this query is used to check if the actor is inserted succesfully
     # curs.execute('SELECT * FROM movie WHERE tt = %s', (tt))
@@ -44,6 +45,7 @@ def insertDish(conn, form_data):
     else:
         curs.execute("""INSERT INTO dishes(id, name, num_of_likes, res_id) VALUES (NULL, %s, %s, %s)""",
                     (dish, 0, resID))
+        return "The dish " + dish + " is successfully inserted."
 
 
 
