@@ -18,11 +18,10 @@
     <span id = "mainName">Welcome to Contribute</span>
     <br><p><i>Update the database through adding, liking and commenting</i>
 </div>
-
 {{message}}
 
 <div id = "display">
-<form id= "addRes" method=POST action="">
+<form id= "addRes" method=POST action="updatepage.cgi">
 <!-- <form method=POST action="update.cgi"> -->
   <fieldset id= "addform">
     <legend><b>New Restaurant</b></legend>
@@ -43,18 +42,18 @@
       </tr>
       <tr>
          <td><label for="type">Restaurant Type:</label></td>
-         <td><select name = "cuisine" id="cuisine">
+         <td><select name="resType" id="resType">
          	 <option value="both">Both</option>
          	 <option value="meal">Meal</option>
          	 <option value="cafe">Cafe</option>
          </td>
       </tr>
     </table>
-      <input type="submit" name = "addRes" value="Add Restaurant">
+      <input type="submit" name="addRes" value="Add Restaurant">
   </fieldset><br>
 </form>
 
-<form id= "addDish" method=POST action="">
+<form id= "addDish" method=POST action="update.cgi">
     <fieldset  id= "addform">
     <legend><b>New Dish</b></legend>
     <table>
@@ -68,7 +67,7 @@
         <td><input type="text" name="res" id="res"></td>
     </tr>
     </table>
-      <input type="submit" name = "addDishes" value="Add Dish">
+      <input type="submit" name="addDishes" value="Add Dish">
   </fieldset>
 </form>
 </div>
