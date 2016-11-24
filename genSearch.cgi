@@ -18,7 +18,11 @@ def main():
 	conn.autocommit(True)
 
 	form_data = cgi.FieldStorage()
-	display = search.generalS(conn, form_data)
+
+	if ("generalS" in form_data):
+		display = search.generalS(conn, form_data)
+	else:
+		display = ""
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
@@ -56,13 +60,13 @@ def main():
 	<option value="Korean">Korean</option>
 	</select></p>
 
-	<p><input type="submit" name="generalS" value="generalS"></form>'''
+	<p><input type="submit" name="generalS" value="Search"></form>'''
 
 	choices = '''<ul>
 	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
 	</ul>'''
 
-	page = tmpl.render(intro = intro, searchForm = form, bottons = choices)
+	page = tmpl.render(intro = intro, searchForm = form, result = display, bottons = choices)
 	return page
 
 if __name__ == '__main__':

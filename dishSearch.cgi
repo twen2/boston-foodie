@@ -33,7 +33,7 @@ def main():
 	form = '''<form id= "dishSearch" method=POST action="dishSearch.cgi">
 	<p>Enter the dish name:
 	<input type="text" name="dish">
-	<input type="submit" name="dishS" value="dishS"></form>'''
+	<input type="submit" name="dishS" value="Search"></form>'''
 	
 	choices = '''<ul>
 	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>

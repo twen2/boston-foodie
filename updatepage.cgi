@@ -30,7 +30,7 @@ def main():
         nameValid = "resName" in form_data
         locaValid = "loca" in form_data
         cuiValid = "cuisine" in form_data
-        if (nameValid and locaValid and cuiValid and typeValid):
+        if (nameValid and locaValid and cuiValid):
             display = update.insertRes(conn, form_data)
         else:
             if not nameValid:

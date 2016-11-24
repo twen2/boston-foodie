@@ -102,3 +102,8 @@ table #info{
 	text-align: center;
 }
 
+#result{
+	text-align: center;
+	font-weight: bold;
+
+}
