@@ -8,17 +8,27 @@ import dbconn2
 import MySQLdb
 import update
 
+<<<<<<< HEAD
 
 def main():
     dsn = dbconn2.read_cnf(".my.cnf")
     dsn['db'] = 'wzhang2_db'
+=======
+def main():
+    dsn = dbconn2.read_cnf(".my.cnf")
+    dsn['db'] = 'twen2_db'
+>>>>>>> origin/master
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
     
     form_data = cgi.FieldStorage()
+<<<<<<< HEAD
     env = Environment(loader=FileSystemLoader('./'))
     tmpl = env.get_template('updatePage.html')
+=======
+    tmpl = cgi_utils_sda.file_contents('updatePage.html')
+>>>>>>> origin/master
 
     display = ""
 
@@ -27,8 +37,12 @@ def main():
         nameValid = "resName" in form_data
         locaValid = "loca" in form_data
         cuiValid = "cuisine" in form_data
+<<<<<<< HEAD
         # typeValid = "resType" in form_data
         if (nameValid and locaValid and cuiValid and typeValid):
+=======
+        if (nameValid and locaValid and cuiValid):
+>>>>>>> origin/master
             display = update.insertRes(conn, form_data)
         else:
             if not nameValid:
@@ -51,11 +65,20 @@ def main():
                 display += "Please enter the restaurant name.\n"
     else:
         display = ""
+<<<<<<< HEAD
     page = tmpl.format(message = display)
     return page
+=======
+    # page = tmpl.format(message = display)
+    return display
+>>>>>>> origin/master
 
 
 if __name__ == '__main__':
     print 'Content-type: text/html\n'
     # displays the webpage
+<<<<<<< HEAD
     print main()
+=======
+    print main()
+>>>>>>> origin/master
