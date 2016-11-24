@@ -7,15 +7,26 @@ import cgi_utils_sda
 import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
+import search
 
 
 def main():
+	dsn = dbconn2.read_cnf(".my.cnf")
+	dsn['db'] = 'wzhang2_db'
+	dsn['host'] = 'localhost'
+	conn = dbconn2.connect(dsn)
+	conn.autocommit(True)
+
+	form_data = cgi.FieldStorage()
+	display = search.generalS(conn, form_data)
+
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
+
 	intro = '''<span id = "mainName">General Search</span>
 	<br><p><i>Search for an ideal restaurant based on location and type</i>'''
 
-	form = '''<form id = "generalSearch" style = "text-indent: 10px">
+	form = '''<form id = "generalSearch" method = POST action = "genSearch.cgi" style = "text-indent: 10px">
 	<p>Please select a location:
 	<select name="location">
 	<option value="Unspecified">Unspecified</option>
@@ -45,7 +56,7 @@ def main():
 	<option value="Korean">Korean</option>
 	</select></p>
 
-	<p><input type="submit" name="submit" value="Search"></form>'''
+	<p><input type="submit" name="generalS" value="generalS"></form>'''
 
 	choices = '''<ul>
 	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
