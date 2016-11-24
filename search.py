@@ -58,29 +58,3 @@ def dishS(conn, form_data):
             dishes.append(result["name"])
         return dishes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
