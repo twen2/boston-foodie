@@ -24,6 +24,7 @@ def main():
 
 
     display = ""
+    resName = ""
 
     if "addRes" in form_data:
         # process the input and add the restaurant
@@ -31,6 +32,7 @@ def main():
         locaValid = "loca" in form_data
         cuiValid = "cuisine" in form_data
         if (nameValid and locaValid and cuiValid):
+            resName = form_data.getfirst("resName")
             display = update.insertRes(conn, form_data)
         else:
             if not nameValid:
@@ -53,7 +55,7 @@ def main():
                 display += "Please enter the restaurant name.\n"
     else:
         display = ""
-    page = tmpl.render(message = display)
+    page = tmpl.render(message = display, defaultResName = resName)
     return page
 
 
