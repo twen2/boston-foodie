@@ -20,7 +20,7 @@ def main():
 	form_data = cgi.FieldStorage()
 
 	if ("generalS" in form_data):
-		display = search.generalS(conn, form_data)
+		display = search.generalSearch(conn, form_data)
 	else:
 		display = ""
 

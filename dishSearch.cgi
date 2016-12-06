@@ -21,7 +21,7 @@ def main():
 	display = ""
 	if "dishS" in form_data:
 		if "dish" in form_data:
-			display = search.dishS(conn, form_data)
+			display = search.dishSearch(conn, form_data)
 		else:
 			display += "Please enter the dish name."
 

@@ -8,7 +8,7 @@ import cgitb; cgitb.enable()
 import dbconn2
 import MySQLdb
 
-def generalS(conn, form_data):
+def generalSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
     loca = form_data.getfirst("location")
@@ -45,7 +45,7 @@ def getResult(locaSet, resSet, cuiSet):
 
     return resultSet
 
-def dishS(conn, form_data):
+def dishSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     dish = form_data.getfirst("dish")
     curs.execute('SELECT * FROM dishes WHERE name LIKE %s', ("%" + dish + "%"))
