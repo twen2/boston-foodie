@@ -16,21 +16,21 @@
 </div>
 
 <div id="pageIntro">
-    <span id = "mainName">{{resName}}</span>
-    <br><p><i>Welcome to the info page of {{resName}}</i>
+    <span id = "mainName">{resName}</span>
+    <br><p><i>Welcome to the info page of {resName}</i>
     <!-- {display} -->
 </div>
 
 <div id = "display">
 <table id = "info" >
     <tr>
-        <th><b>Location</b>{{loca}}</th>
-        <th><b>Cuisine</b>{{cuisine}}</th>
-        <th><b>{{type}}</b></th>
+        <th><b>Location</b>{loca}</th>
+        <th><b>Cuisine</b>{cuisine}</th>
+        <th><b>{type}</b></th>
     </tr>
 </table>
 
-<fieldset  id= "cuisineList">
+<!-- <fieldset  id= "cuisineList">
     <legend><b>Top Dishes</b></legend>
      {% for row in rows %}
        <p value = "{{row['id']}}">
@@ -40,7 +40,7 @@
      {% endfor %}
     
 </fieldset>
-
+ -->
 <br>
 <div style = "text-align:center">
     <ul>

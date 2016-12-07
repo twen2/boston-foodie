@@ -12,17 +12,26 @@ import search
 
 def main():
 	dsn = dbconn2.read_cnf(".my.cnf")
-	dsn['db'] = 'wzhang2_db'
+	dsn['db'] = 'twen2_db'
 	dsn['host'] = 'localhost'
 	conn = dbconn2.connect(dsn)
 	conn.autocommit(True)
 
 	form_data = cgi.FieldStorage()
-
+	results = []
+	display = ""
 	if ("generalS" in form_data):
 		display = search.generalSearch(conn, form_data)
-	else:
-		display = ""
+		# for result in results: # result is a restaurant name
+		# 	# resID = search.getResID(conn, str(result))
+		# 	# dishes = search.getDishes(conn, int(resInfo["id"]))
+		# 	# page = resultTmpl.format(resName=str(resInfo["name"]), loca=str(resInfo["loca"]), cuisine=str(resInfo["cui_type"]), type=str(resInfo["res_type"]), rows=dishes)
+		# 	page = '<a href="searchResult.cgi?resName={0}"></a>'.format(result)
+		# 	display += page + '\n'
+		# 	display = results
+	# else:
+	# 	display = ""
+
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
