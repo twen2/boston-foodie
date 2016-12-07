@@ -22,7 +22,7 @@ CREATE TABLE restaurants (
 	name varchar(50) NOT NULL,
 	location varchar(50) NOT NULL,
 	cuisine_type varchar(50) NOT NULL,
-	res_type enum ("cafe", "meal")
+	res_type enum ("cafe", "meal","both")
 ) ENGINE = InnoDB;
 
 load data LOCAL infile 'restaurants.csv'
