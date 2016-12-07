@@ -36,6 +36,15 @@ def generalSearch(conn, form_data):
     resultSet = getResult(locaSet, resSet, cuiSet)
     return resultSet
 
+def getLocations(conn):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('SELECT DISTINCT(location) FROM restaurants ORDER BY location ASC')
+    return curs.fetchall()
+
+def getCuisines(conn):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('SELECT DISTINCT(cuisine_type) FROM restaurants ORDER BY cuisine_type ASC')
+    return curs.fetchall()
 
 def getResult(locaSet, resSet, cuiSet):
     resultSet = []

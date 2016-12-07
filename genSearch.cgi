@@ -27,18 +27,26 @@ def main():
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
 
+	locaRows = search.getLocations(conn)
+	locaOptions = ''''''
+	for row in locaRows:
+		locaOptions+='''<option value = "{row[location]}">{row[location]}</option>'''.format(row=row)
+
+	cuisineRows = search.getCuisines(conn)
+	cuisineOptions = ''''''
+	for row in cuisineRows:
+		cuisineOptions+='''<option value = "{row[cuisine_type]}">{row[cuisine_type]}</option>'''.format(row=row)
+
+
+
 	intro = '''<span id = "mainName">General Search</span>
 	<br><p><i>Search for an ideal restaurant based on location and type</i>'''
 
 	form = '''<form id = "generalSearch" method = POST action = "genSearch.cgi" style = "text-indent: 10px">
 	<p>Please select a location:
 	<select name="location">
-	<option value="Unspecified">Unspecified</option>
-	<option value="Boston">Boston</option>
-	<option value="Cambridge">Cambridge</option>
-	<option value="Wellesley">Wellesley</option>
-	<option value="Newton">Newton</option>
-	<option value="Natick">Natick</option>
+	   <option value="Unspecified">Unspecified</option>
+	   {locaOptions}
 	</select></p>
 
 	<p>Please select the restaurant type:
@@ -51,16 +59,11 @@ def main():
 	<p>Please select the cuisine type:
 	<select name="cuiType">
 	<option value="Unspecified">Unspecified</option>
-	<option value="Japanese">Japanese</option>
-	<option value="Thai">Thai</option>
-	<option value="Chinese">Chinese</option>
-	<option value="Italian">Italian</option>
-	<option value="French">French</option>
-	<option value="American">American</option>
-	<option value="Korean">Korean</option>
+	   {cuisineOptions}
 	</select></p>
 
-	<p><input type="submit" name="generalS" value="Search"></form>'''
+	<p><input type="submit" name="generalS" value="Search"></form>
+	'''.format(locaOptions=locaOptions,cuisineOptions=cuisineOptions)
 
 	choices = '''<ul>
 	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
