@@ -20,7 +20,12 @@ def main():
 	form_data = cgi.FieldStorage()
 
 	if ("generalS" in form_data):
-		display = search.generalSearch(conn, form_data)
+		allResults = search.generalSearch(conn, form_data)
+		if len(allResults) == 0:
+			 display = "Sorry, there is no matching restaurant.<br>Retry another search!"
+		else:
+			display = search.displayResult(allResults)
+
 	else:
 		display = ""
 

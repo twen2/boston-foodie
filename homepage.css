@@ -105,5 +105,7 @@ table #info{
 #result{
 	text-align: center;
 	font-weight: bold;
+	width: 600px;
+	background-color: lightcyan;
 
 }
