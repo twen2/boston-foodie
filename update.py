@@ -17,16 +17,29 @@ def getRes(conn,resName):
     else:
         return -1
 
+# def getResLoca(conn,resName,loca):
+#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+#     curs.execute('SELECT * FROM restaurants WHERE name = %s AND location = %s', (resName,loca))
+#     row = curs.fetchone()
+#     if curs.rowcount != 0:
+#         return row["id"]
+#     else:
+#         return -1
+
 def insertRes(conn, form_data):
     # creates the cursor as dictionary and stores the result set in the client
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
     name = form_data.getfirst("resName")
+    # loca = form_data.getfirst("loca")
 
+    # if getResLoca(conn, name,loca) == -1:
     if getRes(conn, name) == -1:
         loca = form_data.getfirst("loca")
         cuisine = form_data.getfirst("cuisine")
         resType = form_data.getfirst("resType")
+        if resType == "":
+            resType = "both"
 
         # executes the given query that inserts the provided data into the table
         curs.execute("""INSERT INTO restaurants(id, name, location, cuisine_type, res_type) VALUES (NULL, %s, %s, %s, %s)""",
@@ -45,6 +58,7 @@ def insertDish(conn, form_data):
     dish = form_data.getfirst("dishName")
     resName = form_data.getfirst("res")
     resID = getRes(conn, resName)
+
     if resID == -1:
         return "Restaurant does not exist."
     else:
