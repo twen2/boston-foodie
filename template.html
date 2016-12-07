@@ -1,18 +1,12 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset='utf-8'>
-    <meta name=author content="Sharon Zhang">
-    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Amatic+SC|Pacifico|Quicksand" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="homepage.css">
-    <title>Boston Foodie - Home Page</title>
-</head>
+{% extends "parentTemp.html" %}
+{% block bigtitle %}Home Page{% endblock %}
 
-<body>
-<div id="pageTop">
-	<h1 id="welcome">Boston Foodie!</h1>
+{% block pageTop %}
+<h1 id="welcome">Boston Foodie!</h1>
 	<h2>Explore the restaurants and satisfy your taste</h2>
-</div>
+{% endblock %}
+
+{% block wholeContent %}
 
 <div id="pageIntro">
     {{intro}}
@@ -30,7 +24,4 @@
 {{bottons}}
 </div>
 
-
-</div>
-</body>
-</html>
+{% endblock %}

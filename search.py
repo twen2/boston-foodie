@@ -16,6 +16,7 @@ def generalSearch(conn, form_data):
     cuiType = form_data.getfirst("cuiType")
 
     curs.execute('SELECT * FROM restaurants')
+    # if users don't specify any preference, their choices will be default to the fullset 
     fullSet = curs.fetchall()
     locaSet = fullSet
     resSet = fullSet
@@ -37,6 +38,15 @@ def generalSearch(conn, form_data):
 
     return resultSet
 
+def getLocations(conn):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('SELECT DISTINCT(location) FROM restaurants ORDER BY location ASC')
+    return curs.fetchall()
+
+def getCuisines(conn):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('SELECT DISTINCT(cuisine_type) FROM restaurants ORDER BY cuisine_type ASC')
+    return curs.fetchall()
 
 def getResult(conn, locaSet, resSet, cuiSet):
     resultSet = []
@@ -55,16 +65,18 @@ def getResult(conn, locaSet, resSet, cuiSet):
 def dishSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     dish = form_data.getfirst("dish")
-    curs.execute('SELECT * FROM dishes WHERE name LIKE %s', ("%" + dish + "%"))
+    curs.execute('SELECT name FROM restaurants WHERE id in (SELECT res_id FROM dishes WHERE name LIKE %s)', 
+        ("%" + dish + "%"))
+    dishes = []
     if curs.rowcount == 0:
-        return "Sorry, no dishes match your search."
+        return dishes
     else:
         resultSet = curs.fetchall()
-        dishes = []
         for result in resultSet:
             dishes.append(result["name"])
         return dishes
 
+<<<<<<< HEAD
 def getResInfo(conn, resID):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('SELECT * FROM restaurants WHERE id = %s', (resID))
@@ -95,3 +107,12 @@ def getDishes(conn, resID):
         dish['id'] = row['id']
         dishes.append(dish)
     return dishes
+=======
+def displayResult(resultSet):
+    display = "<h3>Matching Restaurants</h3>"
+    for re in resultSet:
+        display += '''<p><a href = "">{re}</a>'''.format(re=re)
+    return display
+
+
+>>>>>>> origin/master

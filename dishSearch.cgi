@@ -18,12 +18,18 @@ def main():
 	conn.autocommit(True)
 
 	form_data = cgi.FieldStorage()
-	display = ""
-	if "dishS" in form_data:
-		if "dish" in form_data:
-			display = search.dishSearch(conn, form_data)
+
+	if ("dishS" in form_data):
+		if ("dish" in form_data):
+			allResults = search.dishSearch(conn, form_data)
+			if len(allResults) == 0:
+				display = "Sorry, no restaurant has such dish."
+			else:
+				display = search.displayResult(allResults)
 		else:
-			display += "Please enter the dish name."
+			display = "Please enter the dish name."
+	else:
+		display = ""
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
