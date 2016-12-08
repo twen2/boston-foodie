@@ -25,7 +25,7 @@ def main():
     location = str(resInfo['loca'])
     cui_type = str(resInfo['cui_type'])
     res_type = str(resInfo['res_type'])
-    if resID == None or resName == None:
+    if resID == None:
         return tmpl
     else:
         return tmpl.format(resName=resName, loca=location, cuisine=cui_type, type=res_type)

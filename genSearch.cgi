@@ -21,7 +21,6 @@ def main():
 	results = []
 	display = ""
 	if ("generalS" in form_data):
-<<<<<<< HEAD
 		display = search.generalSearch(conn, form_data)
 		# for result in results: # result is a restaurant name
 		# 	# resID = search.getResID(conn, str(result))
@@ -33,16 +32,14 @@ def main():
 	# else:
 	# 	display = ""
 
-=======
-		allResults = search.generalSearch(conn, form_data)
-		if len(allResults) == 0:
-			 display = "Sorry, there is no matching restaurant.<br>Retry another search!"
-		else:
-			display = search.displayResult(allResults)
+		# allResults = search.generalSearch(conn, form_data)
+		# if len(allResults) == 0:
+		# 	 display = "Sorry, there is no matching restaurant.<br>Retry another search!"
+		# else:
+		# 	display = search.displayResult(allResults)
 
 	else:
 		display = ""
->>>>>>> origin/master
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
@@ -56,7 +53,6 @@ def main():
 	cuisineOptions = ''''''
 	for row in cuisineRows:
 		cuisineOptions+='''<option value = "{row[cuisine_type]}">{row[cuisine_type]}</option>'''.format(row=row)
-
 
 
 	intro = '''<span id = "mainName">General Search</span>

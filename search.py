@@ -52,14 +52,14 @@ def getResult(conn, locaSet, resSet, cuiSet):
     resultSet = []
     for row in locaSet:
         if (row in resSet) and (row in cuiSet):
-            resultSet.append(str(row["name"]))
+            resultSet.append(row["name"])
 
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:
         # display += '''<p><a href = "">{re}</a>'''.format(re=re)
         resID = getResID(conn, re)
-        display += '''<a href="searchResult.cgi?resID={resID}">{resName}</a>'''.format(resID, re)
-
+        # display += '''<a href="searchResult.cgi?resID={resID}">{resName}</a>'''.format(resID, re)
+        display += '''<p><a href="">{resID}</a>'''.format(resID=resID)
     return display
 
 def dishSearch(conn, form_data):
@@ -76,10 +76,13 @@ def dishSearch(conn, form_data):
             dishes.append(result["name"])
         return dishes
 
-<<<<<<< HEAD
+# def getResName(conn, resID):
+#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+#     curs.execute()
+
 def getResInfo(conn, resID):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('SELECT * FROM restaurants WHERE id = %s', (resID))
+    curs.execute('SELECT * FROM restaurants WHERE restaurant.id = %s', (resID))
     row = curs.fetchone()
     result = {}
     result["resName"] = row['name']
@@ -107,12 +110,9 @@ def getDishes(conn, resID):
         dish['id'] = row['id']
         dishes.append(dish)
     return dishes
-=======
+
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:
         display += '''<p><a href = "">{re}</a>'''.format(re=re)
     return display
-
-
->>>>>>> origin/master
