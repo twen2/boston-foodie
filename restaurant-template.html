@@ -1,18 +1,23 @@
-{% extends "parentTemp.html" %}
-{% block bigtitle %}Restaurant Page{% endblock %}
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name=author content="Sharon Zhang">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Amatic+SC|Pacifico|Quicksand" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="homepage.css">
+    <title>Boston Foodie - Home Page</title>
+</head>
 
-{% block pageTop %}
-<h1 id="welcome">Boston Foodie!</h1>
+<body>
+
+<div id="pageTop">
+    <h1 id="welcome">Boston Foodie!</h1>
     <h2>Explore the restaurants and satisfy your taste</h2>
-    <h2>See recommended dishes for restaurants </h2>
-{% endblock %}
-
-{% block wholeContent %}
+</div>
 
 <div id="pageIntro">
     <span id = "mainName">{resName}</span>
     <br><p><i>Welcome to the info page of {resName}</i>
-    <!-- {display} -->
 </div>
 
 <div id = "display">
@@ -24,19 +29,19 @@
     </tr>
 </table>
 
-<!-- <fieldset  id= "cuisineList">
-    <legend><b>Top Dishes</b></legend>
-     {% for row in rows %}
+<fieldset  id= "cuisineList">
+    <!-- <legend><b>Top Dishes</b></legend> -->
+<!--      {{% for row in rows %}}
        <p value = "{{row['id']}}">
-        <a href="{{url}}">{{row['name']}}</a>
         <span>{{row['num_of_likes']}}</span>
         <input type="submit" name = "like" value = "LIKE"></p>
-     {% endfor %}
+     {{% endfor %}}
+ -->     {dishes}
+
     
 </fieldset>
- -->
-<br>
 
+<br>
 <div style = "text-align:center">
     <ul>
         <li><a href="genSearch.cgi"><span id = "mainName">Go to General Search</span>
@@ -45,4 +50,5 @@
     </ul>
 
 </div>
-{% endblock %}
+</body>
+</html>

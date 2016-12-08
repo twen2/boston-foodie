@@ -54,13 +54,11 @@ def getResult(conn, locaSet, resSet, cuiSet):
         if (row in resSet) and (row in cuiSet):
             resultSet.append(row["name"])
 
-    display = "<h3>Matching Restaurants</h3>"
-    for re in resultSet:
-        # display += '''<p><a href = "">{re}</a>'''.format(re=re)
-        resID = getResID(conn, re)
-        # display += '''<a href="searchResult.cgi?resID={resID}">{resName}</a>'''.format(resID, re)
-        display += '''<p><a href="">{resID}</a>'''.format(resID=resID)
-    return display
+    # display = "<h3>Matching Restaurants</h3>"
+    # for re in resultSet:
+    #     display += '''<p><a href="searchResult.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
+    # return display
+    return resultSet
 
 def dishSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -68,28 +66,26 @@ def dishSearch(conn, form_data):
     curs.execute('SELECT name FROM restaurants WHERE id in (SELECT res_id FROM dishes WHERE name LIKE %s)', 
         ("%" + dish + "%"))
     dishes = []
-    if curs.rowcount == 0:
-        return dishes
-    else:
+    if curs.rowcount != 0:
         resultSet = curs.fetchall()
         for result in resultSet:
             dishes.append(result["name"])
-        return dishes
+    return dishes
 
 # def getResName(conn, resID):
 #     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 #     curs.execute()
 
-def getResInfo(conn, resID):
+def getResInfo(conn, resName):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('SELECT * FROM restaurants WHERE restaurant.id = %s', (resID))
+    curs.execute('SELECT * FROM restaurants WHERE name = %s', (resName))
     row = curs.fetchone()
     result = {}
     result["resName"] = row['name']
     result['loca'] = row['location']
     result['cui_type'] = row['cuisine_type']
     result['res_type'] = row['res_type']
-    # result['id'] = row['id']
+    result['id'] = row['id']
     return result
 
 def getResID(conn, resName):
@@ -111,8 +107,18 @@ def getDishes(conn, resID):
         dishes.append(dish)
     return dishes
 
+def getDishDisplay(dishes):
+    display = "<legend><b>Top Dishes</b></legend>"
+    for dish in dishes:
+        dishID = dish['id']
+        dishName = dish['name']
+        dishLikes = dish['num_of_likes']
+        display += '''<p value = "{id}">{name}
+        <span>{likes}</span>
+        <input type="submit" name = "like" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:
-        display += '''<p><a href = "">{re}</a>'''.format(re=re)
+        display += '''<p><a href="searchResult.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
     return display

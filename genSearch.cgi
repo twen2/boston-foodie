@@ -18,28 +18,10 @@ def main():
 	conn.autocommit(True)
 
 	form_data = cgi.FieldStorage()
-	results = []
 	display = ""
 	if ("generalS" in form_data):
-		display = search.generalSearch(conn, form_data)
-		# for result in results: # result is a restaurant name
-		# 	# resID = search.getResID(conn, str(result))
-		# 	# dishes = search.getDishes(conn, int(resInfo["id"]))
-		# 	# page = resultTmpl.format(resName=str(resInfo["name"]), loca=str(resInfo["loca"]), cuisine=str(resInfo["cui_type"]), type=str(resInfo["res_type"]), rows=dishes)
-		# 	page = '<a href="searchResult.cgi?resName={0}"></a>'.format(result)
-		# 	display += page + '\n'
-		# 	display = results
-	# else:
-	# 	display = ""
-
-		# allResults = search.generalSearch(conn, form_data)
-		# if len(allResults) == 0:
-		# 	 display = "Sorry, there is no matching restaurant.<br>Retry another search!"
-		# else:
-		# 	display = search.displayResult(allResults)
-
-	else:
-		display = ""
+		results = search.generalSearch(conn, form_data)
+		display = search.displayResult(results)
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')

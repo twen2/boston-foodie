@@ -19,16 +19,21 @@ def main():
 
     form_data = cgi.FieldStorage()
 
-    resID = form_data.getfirst('resID')
-    resInfo = search.getResInfo(conn, resID)
-    resName = str(resInfo['resName'])
-    location = str(resInfo['loca'])
-    cui_type = str(resInfo['cui_type'])
-    res_type = str(resInfo['res_type'])
-    if resID == None:
+    # resID = form_data.getfirst('resID')
+    resName = form_data.getfirst('resName')
+
+    if resName == None:
         return tmpl
     else:
-        return tmpl.format(resName=resName, loca=location, cuisine=cui_type, type=res_type)
+        resInfo = search.getResInfo(conn, resName)
+        # resName = str(resInfo['resName'])
+        location = str(resInfo['loca'])
+        cui_type = str(resInfo['cui_type'])
+        res_type = str(resInfo['res_type'])
+        res_id = resInfo['id']
+        dishes = search.getDishes(conn, res_id)
+        dishesDisplay = search.getDishDisplay(dishes)
+        return tmpl.format(resName=resName, loca=location, cuisine=cui_type, type=res_type, dishes=dishesDisplay)
 
 if __name__ == '__main__':
     print 'Content-type: text/html\n'
