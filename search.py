@@ -80,13 +80,14 @@ def getResInfo(conn, resName):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('SELECT * FROM restaurants WHERE name = %s', (resName))
     row = curs.fetchone()
-    result = {}
-    result["resName"] = row['name']
-    result['loca'] = row['location']
-    result['cui_type'] = row['cuisine_type']
-    result['res_type'] = row['res_type']
-    result['id'] = row['id']
-    return result
+    # result = {}
+    # result["resName"] = row['name']
+    # result['loca'] = row['location']
+    # result['cui_type'] = row['cuisine_type']
+    # result['res_type'] = row['res_type']
+    # result['id'] = row['id']
+    # return result
+    return row
 
 def getResID(conn, resName):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -96,7 +97,7 @@ def getResID(conn, resName):
 
 def getDishes(conn, resID):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('SELECT * FROM dishes WHERE res_id = %s', (resID))
+    curs.execute('SELECT * FROM dishes WHERE res_id = %s ORDER BY num_of_likes DESC', (resID))
     rows = curs.fetchall()
     dishes = []
     for row in rows:
@@ -108,19 +109,19 @@ def getDishes(conn, resID):
     return dishes
 
 def getDishDisplay(dishes):
-    display = "<legend><b>Top Dishes</b></legend>"
+    display = ""
     for dish in dishes:
         dishID = dish['id']
         dishName = dish['name']
         dishLikes = dish['num_of_likes']
-        display += '''<p value = "{id}">{name}
-        <span>{likes}</span>
+        display += '''<p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
         <input type="submit" name = "like" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+    return display
 
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:
-        display += '''<p><a href="searchResult.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
+        display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
     return display
 
 

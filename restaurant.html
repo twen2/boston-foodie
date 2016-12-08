@@ -1,0 +1,43 @@
+{% extends "parentTemp.html" %}
+{% block bigtitle %}Restaurant Page{% endblock %}
+
+{% block pageTop %}
+<h1 id="welcome">Boston Foodie!</h1>
+    <h2>Explore the restaurants and satisfy your taste</h2>
+    <h2>See recommended dishes for restaurants </h2>
+{% endblock %}
+
+{% block wholeContent %}
+
+<div id="pageIntro">
+    <span id = "mainName">{{resName}}</span>
+    <br><p><i>Welcome to the info page of {{resName}}</i>
+    <br><br><b>Location: </b>{{loca}}  <b>Cuisine: </b>{{cuisine}} <b>Type: </b>{{type}}
+
+</div>
+
+<div id = "display">
+
+<fieldset  id= "cuisineList">
+    <legend><b>Top Dishes</b></legend>
+     <!-- {% for row in rows %}
+       <p value = "{{row['id']}}">
+        <a href="{{url}}">{{row['name']}}</a>
+        <span>{{row['num_of_likes']}}</span>
+        <input type="submit" name = "like" value = "LIKE"></p>
+     {% endfor %} -->
+    {{dishes}}
+</fieldset>
+</div>
+
+<br>
+<div id="navi">
+    <ul>
+        <li><a href="genSearch.cgi"><span id = "mainName">Go to General Search</span>
+
+        <li><a href="dishSearch.cgi"><span id = "mainName">Go to Dishes Search</span>
+    </ul>
+
+</div>
+
+{% endblock %}

@@ -63,7 +63,8 @@ li {
 
 #display{
 	margin: 0 auto;
-	width: 400px;
+	text-align: center;
+	width: 60%;
 }
 
 legend{
@@ -104,8 +105,9 @@ table #info{
 
 #result{
 	text-align: center;
+	margin: 0 auto;
 	font-weight: bold;
 	width: 600px;
-	background-color: lightcyan;
+	/*background-color: lavender;*/
 
 }

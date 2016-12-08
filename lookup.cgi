@@ -15,7 +15,8 @@ def main():
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
-    tmpl = cgi_utils_sda.file_contents('restaurant-template.html')
+    env = Environment(loader=FileSystemLoader('./'))
+    tmpl = env.get_template('restaurant.html')
 
     form_data = cgi.FieldStorage()
 
@@ -27,13 +28,16 @@ def main():
     else:
         resInfo = search.getResInfo(conn, resName)
         # resName = str(resInfo['resName'])
-        location = str(resInfo['loca'])
-        cui_type = str(resInfo['cui_type'])
-        res_type = str(resInfo['res_type'])
+        # location = str(resInfo['loca'])
+        # cui_type = str(resInfo['cui_type'])
+        # res_type = str(resInfo['res_type'])
+        location = resInfo['location']
+        cui_type = resInfo['cuisine_type']
+        res_type = resInfo['res_type']
         res_id = resInfo['id']
         dishes = search.getDishes(conn, res_id)
         dishesDisplay = search.getDishDisplay(dishes)
-        return tmpl.format(resName=resName, loca=location, cuisine=cui_type, type=res_type, dishes=dishesDisplay)
+        return tmpl.render(resName=resName, loca=location, cuisine=cui_type, type=res_type, dishes=dishesDisplay)
 
 if __name__ == '__main__':
     print 'Content-type: text/html\n'
