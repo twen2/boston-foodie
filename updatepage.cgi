@@ -38,8 +38,7 @@ def main():
                 display += "Please enter the restaurant location.\n"
             if not cuiValid:
                 display += "Please enter the cuisine type.\n"
-            # if not typeValid:
-            #     display += "Please select a restaurant type.\n"
+
     elif "addDishes" in form_data:
         dishValid = "dishName" in form_data
         resValid = "res" in form_data

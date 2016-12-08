@@ -1,19 +1,13 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta name=author content="Sharon Zhang">
-    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Amatic+SC|Pacifico|Quicksand" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="homepage.css">
-    <title>Boston Foodie - Home Page</title>
-</head>
+{% extends "parentTemp.html" %}
+{% block bigtitle %}Restaurant Page{% endblock %}
 
-<body>
-
-<div id="pageTop">
-    <h1 id="welcome">Boston Foodie!</h1>
+{% block pageTop %}
+<h1 id="welcome">Boston Foodie!</h1>
     <h2>Explore the restaurants and satisfy your taste</h2>
-</div>
+    <h2>See recommended dishes for restaurants </h2>
+{% endblock %}
+
+{% block wholeContent %}
 
 <div id="pageIntro">
     <span id = "mainName">{resName}</span>
@@ -42,13 +36,13 @@
 </fieldset>
  -->
 <br>
+
 <div style = "text-align:center">
     <ul>
-        <li><a href="generalS.html"><span id = "mainName">Go to General Search</span>
+        <li><a href="genSearch.cgi"><span id = "mainName">Go to General Search</span>
 
-        <li><a href="dishS.html"><span id = "mainName">Go to Dishes Search</span>
+        <li><a href="dishSearch.cgi"><span id = "mainName">Go to Dishes Search</span>
     </ul>
 
 </div>
-</body>
-</html>
+{% endblock %}
