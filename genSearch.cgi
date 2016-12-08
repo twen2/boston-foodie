@@ -12,7 +12,7 @@ import search
 
 def main():
 	dsn = dbconn2.read_cnf(".my.cnf")
-	dsn['db'] = 'twen2_db'
+	dsn['db'] = 'wzhang2_db'
 	dsn['host'] = 'localhost'
 	conn = dbconn2.connect(dsn)
 	conn.autocommit(True)
@@ -46,20 +46,17 @@ def main():
 	   <option value="Unspecified">Unspecified</option>
 	   {locaOptions}
 	</select></p>
-
 	<p>Please select the restaurant type:
 	<select name="resType">
 	<option value="Unspecified">Unspecified</option>
 	<option value="meal">meal</option>
 	<option value="cafe">cafe</option>
 	</select></p>
-
 	<p>Please select the cuisine type:
 	<select name="cuiType">
 	<option value="Unspecified">Unspecified</option>
 	   {cuisineOptions}
 	</select></p>
-
 	<p><input type="submit" name="generalS" value="Search"></form>
 	'''.format(locaOptions=locaOptions,cuisineOptions=cuisineOptions)
 

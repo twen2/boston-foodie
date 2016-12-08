@@ -122,3 +122,9 @@ def displayResult(resultSet):
     for re in resultSet:
         display += '''<p><a href="searchResult.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
     return display
+
+
+
+
+
+
