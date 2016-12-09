@@ -33,7 +33,13 @@ def main():
         res_type = resInfo['res_type']
         res_id = resInfo['id']
         dishes = search.getDishes(conn, res_id)
-        dishesDisplay = search.getDishDisplay(dishes)
+        for i in range(len(dishes)):
+            # dish = dishes[i]
+            if dishes[i]['name'] in form_data:
+                dishes[i]['num_of_likes'] += 1 # int
+                search.incrementLike(conn, dishes[i]['id'], dishes[i]['num_of_likes'])
+                test=dishes[i]['name']
+        dishesDisplay = search.getDishDisplay(dishes, resName)
         return tmpl.render(resName=resName, loca=location, cuisine=cui_type, type=res_type, dishes=dishesDisplay)
 
 if __name__ == '__main__':
