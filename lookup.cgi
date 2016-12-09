@@ -27,10 +27,7 @@ def main():
         return tmpl
     else:
         resInfo = search.getResInfo(conn, resName)
-        # resName = str(resInfo['resName'])
-        # location = str(resInfo['loca'])
-        # cui_type = str(resInfo['cui_type'])
-        # res_type = str(resInfo['res_type'])
+
         location = resInfo['location']
         cui_type = resInfo['cuisine_type']
         res_type = resInfo['res_type']

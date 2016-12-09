@@ -67,6 +67,12 @@ li {
 	width: 60%;
 }
 
+/*#addForm{
+	margin: 0 auto;
+	text-align: center;
+	width: 400px;
+}*/
+
 legend{
 		text-align: center;
 }

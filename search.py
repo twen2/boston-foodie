@@ -116,12 +116,14 @@ def getDishDisplay(dishes):
         dishLikes = dish['num_of_likes']
         display += '''<p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
         <input type="submit" name = "like" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+        # display += '''<p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
+        # <span id="like{id}" class ="likeB">LIKE</span></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
     return display
 
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:
-        display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
+         display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
     return display
 
 

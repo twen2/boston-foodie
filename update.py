@@ -55,7 +55,7 @@ def insertRes(conn, form_data):
 def insertDish(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    dish = form_data.getfirst("dishName")
+    dish = form_data.getfirst("dishName")#escaper
     resName = form_data.getfirst("res")
     resID = getRes(conn, resName)
 
