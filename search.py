@@ -115,7 +115,7 @@ def getDishDisplay(dishes):
         dishName = dish['name']
         dishLikes = dish['num_of_likes']
         display += '''<p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
-        <input type="submit" name = "{name}" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+        <input type="submit" name = "like" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
     return display
 
 def displayResult(resultSet):
