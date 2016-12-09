@@ -41,7 +41,7 @@ def main():
             if not cuiValid:
                 display += "Please enter the cuisine type.\n"
 
-    elif "addDishes" in form_data:
+    if "addDishes" in form_data:
         dishValid = "dishName" in form_data
         resValid = "res" in form_data
         if dishValid and resValid:
