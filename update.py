@@ -30,7 +30,7 @@ def insertRes(conn, form_data):
     # creates the cursor as dictionary and stores the result set in the client
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    name = form_data.getfirst("resName")
+    name = cgi.escape(form_data.getfirst("resName"))
     # loca = form_data.getfirst("loca")
 
     # if getResLoca(conn, name,loca) == -1:
@@ -55,8 +55,8 @@ def insertRes(conn, form_data):
 def insertDish(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    dish = form_data.getfirst("dishName")#escaper
-    resName = form_data.getfirst("res")
+    dish = cgi.escape(form_data.getfirst("dishName"))
+    resName = cgi.escape(form_data.getfirst("res"))
     resID = getRes(conn, resName)
 
     if resID == -1:
