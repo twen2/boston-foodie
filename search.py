@@ -108,15 +108,27 @@ def getDishes(conn, resID):
         dishes.append(dish)
     return dishes
 
-def getDishDisplay(dishes):
+def getDishDisplay(dishes, resName):
     display = ""
     for dish in dishes:
         dishID = dish['id']
         dishName = dish['name']
         dishLikes = dish['num_of_likes']
-        display += '''<p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
-        <input type="submit" name = "like" value = "LIKE"></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+        display += '''<form id = "dishDisplay" method = POST action = "lookup.cgi?resName={resName}"><p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
+        <input type="submit" name = "{name}" value = "LIKE"></p></form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
     return display
+
+def incrementLike(conn, dishID, like):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('''UPDATE dishes SET num_of_likes = %s WHERE id = %s''', (like, dishID))
+    # curs.execute('SELECT * FROM dishes WHERE id = %s', (dishID))
+    # row = curs.fetchone()
+    # dish = {}
+    # dish['name'] = row['name']
+    # dish['num_of_likes'] = row['num_of_likes']
+    # dish['id'] = row['id']
+    # return dish
+
 
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
