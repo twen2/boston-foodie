@@ -12,7 +12,7 @@ import update
 
 def main():
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'wzhang2_db'
+    dsn['db'] = 'twen2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
@@ -24,12 +24,14 @@ def main():
 
 
     display = ""
+    resName = ""
     if "addRes" in form_data:
         # process the input and add the restaurant
         nameValid = "resName" in form_data
         locaValid = "loca" in form_data
         cuiValid = "cuisine" in form_data
         if (nameValid and locaValid and cuiValid):
+            resName = form_data.getfirst("resName")
             display = update.insertRes(conn, form_data)
         else:
             if not nameValid:
@@ -52,7 +54,7 @@ def main():
     else:
         display = ""
 
-    page = tmpl.render(message = display)
+    page = tmpl.render(message = display, defaultResName=resName)
     return page
 
 
