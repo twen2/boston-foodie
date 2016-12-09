@@ -105,6 +105,15 @@ legend{
 	padding-bottom: 10px;
 }
 
+#lookupRes{
+	text-align: center;
+	background-color: lavender;
+	margin: 0 auto;
+	width: 400px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 table #info{
 	text-align: center;
 }

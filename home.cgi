@@ -8,7 +8,7 @@ import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 
-
+# this is the file for home page before login
 def main():
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
@@ -17,7 +17,7 @@ def main():
 	  <br><br>Search for an ideal restaurant based on location and type</a>
 	<li><a href="dishSearch.cgi"><span id = "mainName">Dishes Search</span>
 	  <br><br>Search for an ideal restaurant based on your favorite dish</a>
-	<li><a href=""><span id = "mainName">Look into Restaurant</span>
+	<li><a href="lookRes.cgi"><span id = "mainName">Look into Restaurant</span>
 	  <br><br>Learn more about specific restaurants</a>
 	<li><a href="homeLogin.cgi"><span id = "mainName">Login to Contribute</span>
 	  <br><br>Login and update the database through adding, liking and commenting</a>

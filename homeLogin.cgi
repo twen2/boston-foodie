@@ -8,7 +8,7 @@ import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 
-
+# this is the cgi file for login in home page
 def main():
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('homepageLogin.html')
