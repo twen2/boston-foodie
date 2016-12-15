@@ -78,9 +78,17 @@ def dishSearch(conn, form_data):
             dishes.append(result["name"])
     return dishes
 
-# def getResName(conn, resID):
-#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-#     curs.execute()
+def nameSearch(conn,form_data):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    resname = cgi.escape(form_data.getfirst("res"))
+    curs.execute('SELECT name FROM restaurants WHERE name LIKE %s',  ("%" + resname + "%"))
+    names = []
+    if curs.rowcount != 0:
+        resultSet = curs.fetchall()
+        for result in resultSet:
+            names.append(result["name"])
+    return names
+
 
 # return all information of a restaurant based on its name
 # here we suppose no two restaurants have the same name

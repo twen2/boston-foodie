@@ -28,13 +28,13 @@ def main():
 		# if dish is entered
 		if ("res" in form_data):
 			# search if the restaurant name exists
-			resResult = update.getRes(conn, form_data)
+			resResult = search.nameSearch(conn, form_data)
 			# display the search result 
-			if resResult == -1:
-				display = "Sorry, this restaurant does not exist."
+			if len(resResult) == 0:
+				display = "Sorry, no restaurant with such name exists."
+			# if len(resResult) == 1:
 			else:
-				resInfo = search.getResInfo(conn, resName)
-				display = ""
+				display = search.displayResult(resResult)
 		else:
 			# show the error message to user
 			display = "Please enter the restaurant name."
