@@ -148,6 +148,8 @@ def getDishDisplay(dishes, resName):
     return display
 
 # display each restaurant result with a hyperline
+# when calling this function, we suppose the result set is not empty
+# The empty case has been handle before the function is called
 def displayResult(resultSet):
     display = "<h3>Matching Restaurants</h3>"
     for re in resultSet:

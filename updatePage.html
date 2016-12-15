@@ -15,8 +15,10 @@
     <br><p><i>Update the database through adding, liking and commenting</i>
 </div>
 <!-- display the error message with |e to prevent input attack -->
-<p style = "text-align: center">{{message|e}}
-
+<div id ="updateResult" >
+  {{message|e}}
+</div>
+<br>
 <div id = "display" >
 
   <!-- the add restaurant form content -->
@@ -47,7 +49,7 @@
          </td>
       </tr>
     </table>
-      <input type="submit" name="addRes" value="Add Restaurant">
+      <input type="submit" name="addRest" value="Add Restaurant">
   </fieldset><br>
 </form>
 

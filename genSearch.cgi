@@ -23,7 +23,10 @@ def main():
 	if ("generalS" in form_data):
 		# get the result and displayed them nicely
 		results = search.generalSearch(conn, form_data)
-		display = search.displayResult(results)
+		if len(results) == 0:
+			display = "Mo matching restaurant exists currently"
+		else:
+			display = search.displayResult(results)
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')

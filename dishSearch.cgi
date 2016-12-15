@@ -27,7 +27,7 @@ def main():
 			allResults = search.dishSearch(conn, form_data)
 			# display the search result 
 			if len(allResults) == 0:
-				display = "Sorry, no restaurant has such dish."
+				display = "Sorry, no restaurant has such dish"
 			else:
 				display = search.displayResult(allResults)
 		else:
