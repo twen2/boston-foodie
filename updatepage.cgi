@@ -13,7 +13,7 @@ import update
 def main():
     # connect to database
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'wzhang2_db'
+    dsn['db'] = 'twen2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)

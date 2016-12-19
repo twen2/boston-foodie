@@ -6,24 +6,12 @@
 
 {% block pageTop %}
 <h1 id="welcome">Boston Foodie!</h1>
-    <h2>{{username}} Welcome Login!
-        <br><b>Explore</b> the restaurants and satisfy your taste
-        <br><b>Add</b> new restaurants or dishes
-        <br><b>Like</b> dishes and <b>Comment</b> restaurants</h2>
+{{top}}
+{{result}}
 {% endblock %}
- 
-{% block wholeContent %}
-<div id="navi">
-    <ul>
-        <li><a href="genSearch.cgi"><span id = "mainName">General Search</span>
-            <br><br>Search for an ideal restaurant based on location and type</a>
 
-        <li><a href="dishSearch.cgi"><span id = "mainName">Dishes Search</span>
-            <br><br>Search for an ideal restaurant based on your favorite dish</a>
-         
-        <li><a href="updatepage.cgi"><span id = "mainName">Update Database</span>
-            <br><br>Update the database through adding, liking and commenting</a>
-     </ul>
-</div>
+{% block wholeContent %}
+{{form}}
+{{choices}}
 {% endblock %}
 

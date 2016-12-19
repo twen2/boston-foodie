@@ -13,7 +13,7 @@ import update
 # this is the cgi for restaurant looking up
 def main():
 	dsn = dbconn2.read_cnf(".my.cnf")
-	dsn['db'] = 'wzhang2_db'
+	dsn['db'] = 'twen2_db'
 	dsn['host'] = 'localhost'
 	conn = dbconn2.connect(dsn)
 	conn.autocommit(True)
