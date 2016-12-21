@@ -63,21 +63,29 @@ def main():
             display = "Please enter a valid username and password.\n"
             return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
         else:
-            username = form_data.getfirst("username")
-            password = form_data.getfirst("password")
-            result = login.verify(conn, username, password)
-            loggedIn = result[0]
-            display = result[1]
+          username = form_data.getfirst("username")
+          password = form_data.getfirst("password")
+        
+          if 'login' in form_data:
+              result = login.verify(conn, username, password)
+            # loggedIn = result[0]
+            # display = result[1]
 
-            if loggedIn:
-                user = username
-                oreo = Cookie.SimpleCookie()
-                cgi_utils_sda.setCookie(oreo, 'user', user)
-                cgi_utils_sda.print_headers(oreo)
-                return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm, result = display)
-            else:
-                cgi_utils_sda.print_headers(None)
-                return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
+          if 'register' in form_data:
+              result = login.register(conn, username, password)
+
+          loggedIn = result[0]
+          display = result[1]
+        
+        if loggedIn:
+            user = username
+            oreo = Cookie.SimpleCookie()
+            cgi_utils_sda.setCookie(oreo, 'user', user)
+            cgi_utils_sda.print_headers(oreo)
+            return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm, result = display)
+        else:
+            cgi_utils_sda.print_headers(None)
+            return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
 
     if 'logout' in form_data:
         print 'logout'
