@@ -66,10 +66,18 @@ def main():
     else:
         username = form_data.getfirst("username")
         password = form_data.getfirst("password")
-        result = login.verify(conn, username, password)
+        
+        if 'login' in form_data:
+            result = login.verify(conn, username, password)
+            # loggedIn = result[0]
+            # display = result[1]
+
+        if 'register' in form_data:
+            result = login.register(conn, username, password)
+
         loggedIn = result[0]
         display = result[1]
-
+        
         if loggedIn:
             user = username
             oreo = Cookie.SimpleCookie()
