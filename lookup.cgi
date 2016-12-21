@@ -14,7 +14,7 @@ import update
 def main():
     # connect to database and set up the env
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'twen2_db'
+    dsn['db'] = 'wzhang2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)

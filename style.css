@@ -133,3 +133,12 @@ table #info{
 	font-weight: bold;
 	color: darkorchid;
 }
+
+#login{
+	text-align: center;
+	margin: 0 auto;
+	background-color: lavender;
+	width: 300px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

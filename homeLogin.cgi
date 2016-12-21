@@ -13,7 +13,7 @@ from jinja2 import Environment, FileSystemLoader
 # this is the cgi file for login in home page
 def main():
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'twen2_db'
+    dsn['db'] = 'wzhang2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
@@ -24,8 +24,7 @@ def main():
             <br><b>Explore</b> the restaurants and satisfy your taste
             <br><b>Add</b> new restaurants or dishes
             <br><b>Like</b> dishes and <b>Comment</b> restaurants</h2>'''
-    loggedInChoices = '''<div id="navi">
-                        <ul>
+    loggedInChoices = '''<ul>
                             <li><a href="genSearch.cgi"><span id = "mainName">General Search</span>
                                 <br><br>Search for an ideal restaurant based on location and type</a>
 
@@ -34,18 +33,17 @@ def main():
                              
                             <li><a href="updatepage.cgi"><span id = "mainName">Update Database</span>
                                 <br><br>Update the database through adding, liking and commenting</a>
-                         </ul>
-                        </div>'''
+                         </ul>'''
     loggedInForm = '''<form id="logout" method=POST action="homeLogin.cgi" style="text-indent: 10px">
                     <input type="submit" name="logout" value="Logout"></form>'''
 
-    generalTop = '''<span id = "mainName">Login Page</span><br>'''
+    generalTop = '''<span id = "mainName">Login Page</span><br><p><i>Login to explore more!</i><br>'''
     generalChoices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
-    generalForm = '''<form id="login" method=POST action="homeLogin.cgi" style = "text-indent: 10px">
-                    <p>Username: <input type=text name="username">
-                    <p>Password: <input type=password name="password"><br>
-                    <input type="submit" name="login" value="Login">
-                    <input type="submit" name="register" value="Register"></form>'''
+    generalForm = '''<form id="login" method=POST action="homeLogin.cgi">
+           <p>Username: <input type=text name="username">
+           <p>Password: <input type=password name="password"><br></br>
+           <input type="submit" name="login" value="Login">
+           <input type="submit" name="register" value="Register"></form>'''
 
     display = ""
 
@@ -60,25 +58,26 @@ def main():
 
     # if the user submitted the login form
     # if "login" in form_data:
-    if not ("username" in form_data and "password" in form_data):
-        display = "Please enter a valid username and password.\n"
-        return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
-    else:
-        username = form_data.getfirst("username")
-        password = form_data.getfirst("password")
-        result = login.verify(conn, username, password)
-        loggedIn = result[0]
-        display = result[1]
-
-        if loggedIn:
-            user = username
-            oreo = Cookie.SimpleCookie()
-            cgi_utils_sda.setCookie(oreo, 'user', user)
-            cgi_utils_sda.print_headers(oreo)
-            return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm, result = display)
-        else:
-            cgi_utils_sda.print_headers(None)
+    if ("login" in form_data or "register" in form_data):
+        if not ("username" in form_data and "password" in form_data):
+            display = "Please enter a valid username and password.\n"
             return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
+        else:
+            username = form_data.getfirst("username")
+            password = form_data.getfirst("password")
+            result = login.verify(conn, username, password)
+            loggedIn = result[0]
+            display = result[1]
+
+            if loggedIn:
+                user = username
+                oreo = Cookie.SimpleCookie()
+                cgi_utils_sda.setCookie(oreo, 'user', user)
+                cgi_utils_sda.print_headers(oreo)
+                return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm, result = display)
+            else:
+                cgi_utils_sda.print_headers(None)
+                return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
 
     if 'logout' in form_data:
         print 'logout'

@@ -6,12 +6,20 @@
 
 {% block pageTop %}
 <h1 id="welcome">Boston Foodie!</h1>
-{{top}}
+<h2>Explore the restaurants and satisfy your taste</h2>
+<div id="pageIntro">
+    {{top}}
+</div>
+
 {{result}}
 {% endblock %}
 
 {% block wholeContent %}
 {{form}}
+
+<div id="navi">
+<br>
 {{choices}}
+</div>
 {% endblock %}
 
