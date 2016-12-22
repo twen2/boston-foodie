@@ -13,7 +13,7 @@ from jinja2 import Environment, FileSystemLoader
 # this is the cgi file for login in home page
 def main():
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'wzhang2_db'
+    dsn['db'] = 'twen2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
@@ -51,6 +51,7 @@ def main():
     tmpl = env.get_template('homepageLogin.html')
 
     oreo = cgi_utils_sda.getCookieFromRequest('user')
+    print oreo.value
     if oreo != None:
         user = oreo.value
     else:
@@ -68,8 +69,6 @@ def main():
         
           if 'login' in form_data:
               result = login.verify(conn, username, password)
-            # loggedIn = result[0]
-            # display = result[1]
 
           if 'register' in form_data:
               result = login.register(conn, username, password)
