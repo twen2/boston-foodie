@@ -25,11 +25,12 @@ def main():
 		if ("dish" in form_data):
 			# search all restaurant with dishes similar to the dish name entered
 			allResults = search.dishSearch(conn, form_data)
+			dishname = cgi.escape(form_data.getfirst("dish"))
 			# display the search result 
 			if len(allResults) == 0:
 				display = "Sorry, no restaurant has such dish"
 			else:
-				display = search.displayResult(allResults)
+				display = search.displayResult(allResults,dishname)
 		else:
 			# show the error message to user
 			display = "Please enter the dish name."

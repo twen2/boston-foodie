@@ -68,7 +68,7 @@ def getResult(conn, locaSet, resSet, cuiSet):
 def dishSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     dish = cgi.escape(form_data.getfirst("dish"))
-    curs.execute('SELECT name FROM restaurants WHERE id in (SELECT res_id FROM dishes WHERE name LIKE %s)', 
+    curs.execute('SELECT name FROM restaurants WHERE id in (SELECT res_id FROM dishes WHERE name LIKE %s ORDER BY num_of_likes DESC)', 
         ("%" + dish + "%"))
     dishes = []
     # if the set is not empty, add all restaurants to the list, otherwise return the empty list
@@ -150,11 +150,26 @@ def getDishDisplay(dishes, resName):
 # display each restaurant result with a hyperline
 # when calling this function, we suppose the result set is not empty
 # The empty case has been handle before the function is called
-def displayResult(resultSet):
-    display = "<h3>Matching Restaurants</h3>"
-    for re in resultSet:
-         display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
-    return display
+# def displayResult(resultSet):
+#         display = "<h3>Matching Restaurants</h3>"
+#         for re in resultSet:
+#             display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
+#         return display
+    
+
+def displayResult(resultSet,info):
+    if info == "gen":
+        display = "<h3>Matching Restaurants</h3>"
+        for re in resultSet:
+            display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>'''.format(resName=re)
+        return display
+    else: 
+        # if the info is a dish name
+        display = "<h3>Restaurants that have {dish} ranked by # of likes</h3>".format(dish = info)
+        for re in resultSet:
+            display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>
+            <span>{number} likes</span>'''.format(resName=re,number=0)
+        return display
 
 
 

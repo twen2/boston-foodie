@@ -21,5 +21,6 @@ def register(conn, username, password):
     row = curs.fetchone()
     if row['n'] != 0:
         return False, "Sorry, the username already exists. Please register with another username again."
-    curs.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
-    return True, "Successfully registered and logged in as " + username
+    else:
+        curs.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+        return True, "Successfully registered and logged in as " + username

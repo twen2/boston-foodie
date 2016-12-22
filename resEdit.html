@@ -1,0 +1,77 @@
+<!-- Sharon Zhang and Wendy Wen -->
+
+<!-- This is the template for update page, inheriting parentTemp -->
+{% extends "parentTemp.html" %}
+{% block bigtitle %}Restaurant Update and Upload{% endblock %}
+
+{% block pageTop %}
+<h1 id="welcome">Boston Foodie!</h1>
+  <h2>Explore the restaurants and satisfy your taste</h2>
+{% endblock %}
+
+{% block wholeContent %}
+<div id="pageIntro">
+    <span id = "mainName">Welcome to Contribute</span>
+    <br><p><i>Update the basic information or upload images of {{resName}}</i>
+    <br><br><b>Location: </b>{{loca}}  <b>Cuisine: </b>{{cuisine}} <b>Type: </b>{{type}}
+</div>
+<!-- display the error message with |e to prevent input attack -->
+<div id ="updateResult" >
+  {{message|e}}
+</div>
+<br>
+<div id = "display" >
+
+  <!-- the add restaurant form content -->
+<form id= "resUpdate"  method=POST action="res-info-update.cgi">
+  <fieldset id= "resform">
+    <legend><b>Update Info</b></legend>
+    <table>
+      <tr>
+        <td><label for="resName">Name</label></td>
+        <td>{{resName}}</td>
+       <!--  <td><input name="resName" id="resName" value="{{resName}}"></td> -->
+      </tr>
+ 
+      <tr>
+         <td><label for="loca">Location</label></td>
+        <td><input name="loca" id="loca" value="{{default_loca}}"></td>
+      </tr>
+
+      <tr>
+         <td><label for="cuisine">Cusine:</label></td>
+         <td><input name="cuisine" id="cuisine" value="{{default_cuisine}}"></td>
+      </tr>
+      <tr>
+         <td><label for="type">Restaurant Type:</label></td>
+         <td><select name="resType" id="resType">
+         	 <option value="both">Both</option>
+         	 <option value="meal">Meal</option>
+         	 <option value="cafe">Cafe</option>
+         </td>
+      </tr>
+    </table>
+      <input type="submit" name="updateRes" value="updateRes">
+  </fieldset><br>
+</form>
+
+  <!-- the add dish form content -->
+<form id= "uploadImg" method=POST action="res-info-update.cgi">
+    <fieldset  id= "resform">
+    <legend><b>Upload Image</b></legend>
+      <p>Image File
+      <input type="text" name="dish">
+      <input type="submit" name="uploadI" value="Upload">
+    </fieldset>
+</form>
+</div>
+<br>
+<!-- button directing back to login homepage -->
+<div style = "text-align:center">
+	<ul>
+    <li><a href="lookup.cgi?resName={{resName}}"><span id = "mainName">Back to {{resName}} Page</span>
+	  <li><a href="homeLogin.cgi"><span id = "mainName">Back to Homepage</span>
+    </ul>
+
+</div>
+{% endblock %}

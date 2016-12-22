@@ -24,23 +24,23 @@
 
 <fieldset  id= "cuisineList">
     <legend><b>Top Dishes</b></legend>
-     <!-- {% for row in rows %}
-       <p value = "{{row['id']}}">
-        <a href="{{url}}">{{row['name']}}</a>
-        <span>{{row['num_of_likes']}}</span>
-        <input type="submit" name = "like" value = "LIKE"></p>
-     {% endfor %} -->
+
     {{dishes}}
 </fieldset>
 </div>
 
 <br>
+<div id = "imgShow">
+    {{newestImg|safe}}
+</div>
 <!-- Buttons directed to other page -->
 <div id="navi">
     <ul>
+        <li><a href ="res-info-update.cgi?resName={{resName}}"><span id = "mainName">Upload or Update {{resName}}</span>
         <li><a href="genSearch.cgi"><span id = "mainName">Go to General Search</span>
 
         <li><a href="dishSearch.cgi"><span id = "mainName">Go to Dishes Search</span>
+        <li><a href=""><span id = "mainName">Back to Search Results</span>
     </ul>
 
 </div>

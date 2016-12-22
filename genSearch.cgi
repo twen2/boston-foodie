@@ -26,7 +26,7 @@ def main():
 		if len(results) == 0:
 			display = "Mo matching restaurant exists currently"
 		else:
-			display = search.displayResult(results)
+			display = search.displayResult(results,"gen")
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
