@@ -139,11 +139,12 @@ def getDishDisplay(dishes, resName):
         dishName = dish['name']
         dishLikes = dish['num_of_likes']
 
-        display += '''<p id="dish" value={id} like={likes}>{name} &nbsp <span><b>{likes}</b></span> &nbsp 
-        <button value="likeB" value={id} like={likes} onclick="incrementLike({id},{likes})">like</button></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+        display += '''<p id="dish" value={id} like={likes}>{name} &nbsp <span id={id} like={likes}><b>{likes}</b></span> &nbsp 
+        <button class="likeB" value={id} like={likes}">like</button></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
         # each like button is a form with unique id
         # display += '''<form id = "dishDisplay" 
         # method = POST 
+         # onclick="incrementLike({id},{likes})
         # action = "lookup.cgi?resName={resName}"><p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
         # <input type="submit" id = "like{id}" name = "{name}" value = "LIKE"></p></form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
 
