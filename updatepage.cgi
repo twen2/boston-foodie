@@ -12,6 +12,7 @@ import update
 # this is the cgi for the update page, user can either add restaurants or add dishes
 def main():
     oreo = cgi_utils_sda.getCookieFromRequest('user')
+    env = Environment(loader=FileSystemLoader('./'))
     # print oreo.value
     userInfo = ""
     logoutForm = ""
@@ -41,7 +42,6 @@ def main():
     
     form_data = cgi.FieldStorage()
     # set up env and get template
-    env = Environment(loader=FileSystemLoader('./'))
     tmpl = env.get_template('updatePage.html')
 
     display = ""

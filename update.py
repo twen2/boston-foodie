@@ -78,6 +78,28 @@ def insertDish(conn, form_data):
         else:
             return "The dish " + dish + " already exists for the restaurant " + resName + "."
 
+# def main(dishID):
+#     dsn = dbconn2.read_cnf(".my.cnf")
+#     dsn['db'] = 'twen2_db'
+#     dsn['host'] = 'localhost'
+#     conn = dbconn2.connect(dsn)
+#     conn.autocommit(True)
+#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+#     curs.execute('''UPDATE dishes SET num_of_likes = %s WHERE id = %s''', (like, dishID))
+#     return
+
+if __name__ == "__main__":
+    dsn = dbconn2.read_cnf(".my.cnf")
+    dsn['db'] = 'twen2_db'
+    dsn['host'] = 'localhost'
+    conn = dbconn2.connect(dsn)
+    conn.autocommit(True)
+    data = cgi.FieldStorage()
+    dishID = data.getfirst('dishID')
+    dishLike = data.getfirst('dishLike')
+    imcrementLike(conn, dishID, dishLike)
+
+
 # update the number of like for each dish after user click the like button
 def incrementLike(conn, dishID, like):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)

@@ -39,13 +39,15 @@ def main():
         res_id = resInfo['id']
         # search all dishes for this restaurant
         dishes = search.getDishes(conn, res_id)
+        # dishList = []
         # for each dish, if the like is clicked, then it will displayed on the page
-        for i in range(len(dishes)):
-            # dish = dishes[i]
-            if dishes[i]['name'] in form_data:
-                dishes[i]['num_of_likes'] += 1 # int
-                # update the database
-                update.incrementLike(conn, dishes[i]['id'], dishes[i]['num_of_likes'])
+        # for i in range(len(dishes)):
+        #     currDish = ""
+        #     # dish = dishes[i]
+        #     if dishes[i]['name'] in form_data:
+        #         dishes[i]['num_of_likes'] += 1 # int
+        #         # update the database
+        #         update.incrementLike(conn, dishes[i]['id'], dishes[i]['num_of_likes'])
                 # test=dishes[i]['name']
         # display the dish info of the restaurant
         dishesDisplay = search.getDishDisplay(dishes, resName)

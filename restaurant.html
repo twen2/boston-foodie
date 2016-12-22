@@ -45,4 +45,37 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+<script>
+$("#likeB").click(function (event) {
+
+                      currentLike = $(event.target).attr('like');
+                      alert(currentLike);
+                      $.ajax({
+                          type: "POST",
+                          url: "search.py",
+                          data: {dishID: $(event.target).attr('value'),
+                                 dishLike: currentLike},
+                          success: function(){
+                            $(event.target)['like'] = currentLike + 1;
+                          }
+                        })
+                      // likeBleat(bid);
+                    });
+function incrementLike(dishID, dishLike) {
+    // alert(dishLike)
+    $.ajax({
+                          type: "POST",
+                          url: "search.py",
+                          data: {dishID: $(event.target).attr('value'),
+                                 dishLike: dishLike},
+                          success: function(){
+                            $(event.target)['like'] = dishLike + 1;
+                            alert($(event.target)['like']);
+
+                          }
+                        })
+}
+</script>
+
 {% endblock %}

@@ -8,6 +8,7 @@ import dbconn2
 import MySQLdb
 import Cookie
 import login
+import requests
 from jinja2 import Environment, FileSystemLoader
 
 # this is the cgi file for login in home page
@@ -46,6 +47,8 @@ def main():
            <input type="submit" name="register" value="Register"></form>'''
 
     display = ""
+
+    my_sess_dir = '~/public_html/sessions/'
 
     env = Environment(loader=FileSystemLoader('./'))
     tmpl = env.get_template('homepageLogin.html')
