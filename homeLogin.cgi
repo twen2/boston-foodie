@@ -2,40 +2,44 @@
 
 import sys 
 import cgi
-import cgitb; cgitb.enable()
+import cgitb; cgitb.enable
 import cgi_utils_sda
 import dbconn2
 import MySQLdb
 import Cookie
 import login
-import requests
+import json
 from jinja2 import Environment, FileSystemLoader
+
+my_sess_dir = '/students/wzhang2/public_html/cgi-bin/beta/session/'
+# my_sess_dir = '/students/twen2/public_html/cgi-bin/session/'
 
 # this is the cgi file for login in home page
 def main():
     dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'twen2_db'
+    dsn['db'] = 'wzhang2_db'
     dsn['host'] = 'localhost'
     conn = dbconn2.connect(dsn)
     conn.autocommit(True)
 
     form_data = cgi.FieldStorage()
 
-    loggedInTop = '''<h2>{{username}} Welcome Login!
-            <br><b>Explore</b> the restaurants and satisfy your taste
+    loggedInTop = '''<h2>Welcome Login! <span style ="color:salmon">{username}</span>
             <br><b>Add</b> new restaurants or dishes
-            <br><b>Like</b> dishes and <b>Comment</b> restaurants</h2>'''
+            <br><b>Like</b> dishes in various restaurants</h2>'''
     loggedInChoices = '''<ul>
                             <li><a href="genSearch.cgi"><span id = "mainName">General Search</span>
                                 <br><br>Search for an ideal restaurant based on location and type</a>
 
-                            <li><a href="dishSearch.cgi"><span id = "mainName">Dishes Search</span>
+                            <li><a href="dishSearch.cgi"><span id = "mainName">Dish Search</span>
                                 <br><br>Search for an ideal restaurant based on your favorite dish</a>
+                            <li><a href="lookRes.cgi"><span id = "mainName">Look into Restaurant</span>
+                                <br><br>Learn more about specific restaurants</a>
                              
                             <li><a href="updatepage.cgi"><span id = "mainName">Update Database</span>
                                 <br><br>Update the database through adding, liking and commenting</a>
                          </ul>'''
-    loggedInForm = '''<form id="logout" method=POST action="homeLogin.cgi" style="text-indent: 10px">
+    loggedInForm = '''<form id="logoutx method=POST action="homeLogin.cgi" style="text-align:center">
                     <input type="submit" name="logout" value="Logout"></form>'''
 
     generalTop = '''<span id = "mainName">Login Page</span><br><p><i>Login to explore more!</i><br>'''
@@ -48,17 +52,8 @@ def main():
 
     display = ""
 
-    my_sess_dir = '~/public_html/sessions/'
-
     env = Environment(loader=FileSystemLoader('./'))
     tmpl = env.get_template('homepageLogin.html')
-
-    oreo = cgi_utils_sda.getCookieFromRequest('user')
-    print oreo.value
-    if oreo != None:
-        user = oreo.value
-    else:
-        user = ""
 
     # if the user submitted the login form
     # if "login" in form_data:
@@ -67,7 +62,7 @@ def main():
             display = "Please enter a valid username and password.\n"
             return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
         else:
-          username = form_data.getfirst("username")
+          username = cgi.escape(form_data.getfirst("username"))
           password = form_data.getfirst("password")
         
           if 'login' in form_data:
@@ -78,34 +73,40 @@ def main():
 
           loggedIn = result[0]
           display = result[1]
+          userid = result[2]
         
         if loggedIn:
-            user = username
-            oreo = Cookie.SimpleCookie()
-            cgi_utils_sda.setCookie(oreo, 'user', user)
-            cgi_utils_sda.print_headers(oreo)
-            return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm, result = display)
+            sess_data['logged_in'] = True
+            sess_data['user'] = username
+            sess_data['uid'] = userid
+            cgi_utils_sda.save_session(my_sess_dir,sessid,sess_data)
+            return tmpl.render(top = loggedInTop.format(username = username), choices = loggedInChoices, form = loggedInForm, result = display)
         else:
             cgi_utils_sda.print_headers(None)
             return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
 
     if 'logout' in form_data:
         print 'logout'
-        oreo = Cookie.SimpleCookie()
-        cgi_utils_sda.setCookie(oreo, 'user', value='', expires=0)
-        cgi_utils_sda.print_headers(oreo)
+        sess_data['logged_in'] = False
+        cgi_utils_sda.save_session(my_sess_dir,sessid,sess_data)
         return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
 
-    if user != '':
-        oreo = Cookie.SimpleCookie()
-        cgi_utils_sda.setCookie(oreo, 'user', user)
-        cgi_utils_sda.print_headers(oreo)
-        display = "Logged in as " + user
-        return tmpl.render(top = loggedInTop, choices = loggedInChoices, form = loggedInForm,result = display)
+    if 'logged_in' in sess_data and sess_data['logged_in']:
+        user = sess_data['user']
     else:
-        cgi_utils_sda.print_headers(None)
+        user = ''
+
+    if user != '':
+        display = "Logged in as " + user
+        return tmpl.render(top = loggedInTop.format(username = user), choices = loggedInChoices, form = loggedInForm,result = display)
+    else:
         return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
 
 if __name__ == '__main__':
-	print 'Content-type: text/html\n'
-	print main()
+    sessid = cgi_utils_sda.session_id()
+    print 'Content-type: text/html'
+    sess_data = cgi_utils_sda.session_start(my_sess_dir,sessid)
+    print
+
+    print '<!-- body follows -->'
+    print main()

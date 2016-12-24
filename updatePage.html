@@ -7,7 +7,6 @@
 {% block pageTop %}
 <h1 id="welcome">Boston Foodie!</h1>
   <h2>Explore the restaurants and satisfy your taste</h2>
-  {{userInfo}}{{form}}
 {% endblock %}
 
 {% block wholeContent %}
@@ -44,9 +43,9 @@
       <tr>
          <td><label for="type">Restaurant Type:</label></td>
          <td><select name="resType" id="resType">
-         	 <option value="both">Both</option>
-         	 <option value="meal">Meal</option>
-         	 <option value="cafe">Cafe</option>
+           <option value="both">Both</option>
+           <option value="meal">Meal</option>
+           <option value="cafe">Cafe</option>
          </td>
       </tr>
     </table>
@@ -81,8 +80,8 @@
 <br>
 <!-- button directing back to login homepage -->
 <div style = "text-align:center">
-	<ul>
-	    <li><a href="homeLogin.cgi"><span id = "mainName">Back to Homepage</span>
+  <ul>
+      <li><a href="homeLogin.cgi"><span id = "mainName">Back to Homepage</span>
     </ul>
 
 </div>

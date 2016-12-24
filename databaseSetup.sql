@@ -42,18 +42,16 @@ load data LOCAL infile 'dishes.csv'
  into table dishes fields terminated by ','lines terminated by '\n';
  
 -- likes table
+-- CREATE TABLE likes (
+-- 	user_id int NOT NULL,
+-- 	dish_id int NOT NULL,
+-- 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE restrict,
+-- 	FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE restrict
+-- ) ENGINE = InnoDB;
+
 CREATE TABLE likes (
-	user_id int NOT NULL,
-	dish_id int NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE restrict,
-	FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE restrict
+	user_id int NOT NULL REFERENCES users(id),
+	dish_id int NOT NULL REFERENCES dishes(id),
+	PRIMARY KEY (user_id,dish_id)
 ) ENGINE = InnoDB;
 
--- comments table
-CREATE TABLE comments (
-	user_id int NOT NULL,
-	res_id int NOT NULL,
-	comments varchar(200) NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE restrict,
-	FOREIGN KEY (res_id) REFERENCES restaurants(id) ON DELETE restrict
-) ENGINE = InnoDB;

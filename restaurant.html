@@ -36,41 +36,42 @@
 <!-- Buttons directed to other page -->
 <div id="navi">
     <ul>
-        <li><a href ="res-info-update.cgi?resName={{resName}}"><span id = "mainName">Upload or Update {{resName}}</span>
+        <!-- <li><a href ="res-info-update.cgi?resName={{resName}}"><span id = "mainName">Upload or Update {{resName}}</span> -->
+        <li>{{link}}
         <li><a href="genSearch.cgi"><span id = "mainName">Go to General Search</span>
 
         <li><a href="dishSearch.cgi"><span id = "mainName">Go to Dishes Search</span>
-        <li><a href=""><span id = "mainName">Back to Search Results</span>
+        <li><a href="javascript:history.go(-1)"><span id = "mainName">Back to Search Results</span>
     </ul>
-
+<br>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
 <script>
-$(".likeB").click(function (event) {
-                    // alert("likeB");
-                      currentLike = parseInt($(event.target).attr('like')[0]);
-                      dishID = $(event.target).attr('value');
-                      // alert(dishID);
-                      currentDish = document.getElementById(dishID);
-                      // console.log(currentDish);
-                      // alert($(currentDish).attr('like'));
-                      // $(event.target)['like'] = currentLike + 1;
-                      currentDish.innerHTML = parseInt(currentLike) + 1;
-                      // alert(currentLike);
-                      $.ajax({
-                          type: "POST",
-                          url: "search.py",
-                          data: {dishID: dishID,
-                                 dishLike: currentLike},
-                          success: function(){
-                            currentDish.innerHTML = currentLike + 1;
-                            currentLike += 1;
-                            alert(currentLike);
-                          }
-                        })
+// $(".likeB").click(function (event) {
+//                     // alert("likeB");
+//                       currentLike = parseInt($(event.target).attr('like')[0]);
+//                       dishID = $(event.target).attr('value');
+//                       // alert(dishID);
+//                       currentDish = document.getElementById(dishID);
+//                       // console.log(currentDish);
+//                       // alert($(currentDish).attr('like'));
+//                       // $(event.target)['like'] = currentLike + 1;
+//                       currentDish.innerHTML = parseInt(currentLike) + 1;
+//                       // alert(currentLike);
+//                       $.ajax({
+//                           type: "POST",
+//                           url: "search.py",
+//                           data: {dishID: dishID,
+//                                  dishLike: currentLike},
+//                           success: function(){
+//                             currentDish.innerHTML = currentLike + 1;
+//                             currentLike += 1;
+//                             alert(currentLike);
+//                           }
+//                         })
                       // likeBleat(bid);
-                    });
+                    // });
 // function incrementLike(dishID, dishLike) {
 //     // alert(dishLike)
 //     $.ajax({

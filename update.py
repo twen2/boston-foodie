@@ -99,22 +99,20 @@ if __name__ == "__main__":
     dishLike = data.getfirst('dishLike')
     imcrementLike(conn, dishID, dishLike)
 
-
 # update the number of like for each dish after user click the like button
-def incrementLike(conn, dishID, like):
+def incrementLike(conn, dishID, userID, like):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('''UPDATE dishes SET num_of_likes = %s WHERE id = %s''', (like, dishID))
-    # curs.execute('SELECT * FROM dishes WHERE id = %s', (dishID))
-    # row = curs.fetchone()
-    # dish = {}
-    # dish['name'] = row['name']
-    # dish['num_of_likes'] = row['num_of_likes']
-    # dish['id'] = row['id']
-    # return dish
+    curs.execute('''INSERT INTO likes(user_id,dish_id) VALUES (%s, %s)''', (userID, dishID))
 
 # check if certain dish exists in the restaurant or not
 def existDish(conn, resID, dishName):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
     curs.execute("""SELECT * FROM dishes WHERE res_id = %s AND name = %s""", (resID, dishName))
+    return curs.rowcount != 0
+
+def ifRepeatLike(conn, userID, dishID):
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('SELECT * FROM likes WHERE user_id = %s AND dish_id = %s', (userID, dishID))
     return curs.rowcount != 0

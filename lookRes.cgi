@@ -9,14 +9,17 @@ import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 import search
 import update
+import json
+
+my_sess_dir = '/students/wzhang2/public_html/cgi-bin/beta/session/'
 
 # this is the cgi for restaurant looking up
 def main():
-	dsn = dbconn2.read_cnf(".my.cnf")
-	dsn['db'] = 'wzhang2_db'
-	dsn['host'] = 'localhost'
-	conn = dbconn2.connect(dsn)
-	conn.autocommit(True)
+	sessid = cgi_utils_sda.session_id()
+	sess_data = cgi_utils_sda.session_start(my_sess_dir,sessid)
+	print
+
+	conn = search.init()
 
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
@@ -34,7 +37,7 @@ def main():
 				display = "Sorry, no restaurant with such name exists."
 			# if len(resResult) == 1:
 			else:
-				display = search.displayResult(resResult)
+				display = search.displayResult(resResult,"gen")
 		else:
 			# show the error message to user
 			display = "Please enter the restaurant name."
@@ -53,9 +56,10 @@ def main():
 	<input type="submit" name="resLookup" value="Look Up"></form>'''
 	
 	# create the button to go back to home page
-	choices = '''<ul>
-	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
-	</ul>'''
+	if sess_data['logged_in']:
+		choices = '''<ul><li><a href="homeLogin.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
+	else:
+		choices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
 
 	# render the page in template
 

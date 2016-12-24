@@ -8,41 +8,18 @@ import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 import update
+import search
 
 # this is the cgi for the update page, user can either add restaurants or add dishes
 def main():
-    oreo = cgi_utils_sda.getCookieFromRequest('user')
-    env = Environment(loader=FileSystemLoader('./'))
-    # print oreo.value
-    userInfo = ""
-    logoutForm = ""
-    if oreo != None:
-        user = oreo.value
-        userInfo = "Logged in as " + user
-        logoutForm = '''<form id="logout" method=POST action="homeLogin.cgi" style="text-indent: 10px">
-                    <input type="submit" name="logout" value="Logout"></form>'''
-    else:
-        tmpl = env.get_template('homepageLogin.html')
-        generalTop = '''<span id = "mainName">Login Page</span><br><p><i>Login to explore more!</i><br>'''
-        generalChoices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
-        generalForm = '''<form id="login" method=POST action="homeLogin.cgi">
-               <p>Username: <input type=text name="username">
-               <p>Password: <input type=password name="password"><br></br>
-               <input type="submit" name="login" value="Login">
-               <input type="submit" name="register" value="Register"></form>'''
-        display = "Please login before contribute, thank you!"
-        return tmpl.render(top = generalTop, choices = generalChoices, form = generalForm, result = display)
-
     # connect to database
-    dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'twen2_db'
-    dsn['host'] = 'localhost'
-    conn = dbconn2.connect(dsn)
-    conn.autocommit(True)
+    conn = search.init()
     
     form_data = cgi.FieldStorage()
     # set up env and get template
+    env = Environment(loader=FileSystemLoader('./'))
     tmpl = env.get_template('updatePage.html')
+
 
     display = ""
     restName = ""
@@ -83,7 +60,7 @@ def main():
     else:
         display = ""
 
-    page = tmpl.render(message = display, defaultResName=restName, userInfo = userInfo, form = logoutForm)
+    page = tmpl.render(message = display, defaultResName=restName)
     return page
 
 

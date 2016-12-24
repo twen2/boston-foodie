@@ -10,6 +10,14 @@ import MySQLdb
 
 # the file provides helper function for searching
 
+def init():
+    dsn = dbconn2.read_cnf(".my.cnf")
+    dsn['db'] = 'wzhang2_db'
+    dsn['host'] = 'localhost'
+    conn = dbconn2.connect(dsn)
+    conn.autocommit(True)
+    return conn
+
 # generally search restaurants by location, cuisine and name
 def generalSearch(conn, form_data):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -26,6 +34,7 @@ def generalSearch(conn, form_data):
     cuiSet = fullSet
 
     # if users choice any of the selection, the result will be more specific
+    # we use three if statement because each case need to solve the unspecific condition, which is not based on others
     if loca != "Unspecified":
         curs.execute('SELECT * FROM restaurants WHERE location = %s', (loca))
         locaSet = curs.fetchall()
@@ -96,13 +105,6 @@ def getResInfo(conn, resName):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('SELECT * FROM restaurants WHERE name = %s', (resName))
     row = curs.fetchone()
-    # result = {}
-    # result["resName"] = row['name']
-    # result['loca'] = row['location']
-    # result['cui_type'] = row['cuisine_type']
-    # result['res_type'] = row['res_type']
-    # result['id'] = row['id']
-    # return result
     return row
 
 # return the id of the restaurant based on the name
@@ -129,7 +131,28 @@ def getDishes(conn, resID):
     return dishes
 
 # display the restaurant and dishes nicely with each dish follow up the number of like, and a like button
-def getDishDisplay(dishes, resName):
+# def getDishDisplay(dishes, resName):
+#     display = ""
+#     # if the restaurant has no entered dish, notify users
+#     if len(dishes) ==0:
+#         display += "The Restaurant {resName} has no recorded dish now.".format(resName = resName)
+#     for dish in dishes:
+#         dishID = dish['id']
+#         dishName = dish['name']
+#         dishLikes = dish['num_of_likes']
+
+#         display += '''<p id="dish" value={id} like={likes}>{name} &nbsp <span id={id} like={likes}><b>{likes}</b></span> &nbsp 
+#         <button class="likeB" value={id} like={likes}">like</button></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
+#         # each like button is a form with unique id
+#         # display += '''<form id = "dishDisplay" 
+#         # method = POST 
+#          # onclick="incrementLike({id},{likes})
+#         # action = "lookup.cgi?resName={resName}"><p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
+#         # <input type="submit" id = "like{id}" name = "{name}" value = "LIKE"></p></form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
+
+    # return display
+
+def getDishDisplay(dishes, resName,login):
     display = ""
     # if the restaurant has no entered dish, notify users
     if len(dishes) ==0:
@@ -139,14 +162,16 @@ def getDishDisplay(dishes, resName):
         dishName = dish['name']
         dishLikes = dish['num_of_likes']
 
-        display += '''<p id="dish" value={id} like={likes}>{name} &nbsp <span id={id} like={likes}><b>{likes}</b></span> &nbsp 
-        <button class="likeB" value={id} like={likes}">like</button></p>'''.format(id=dishID, name=dishName, likes=dishLikes)
         # each like button is a form with unique id
-        # display += '''<form id = "dishDisplay" 
-        # method = POST 
-         # onclick="incrementLike({id},{likes})
-        # action = "lookup.cgi?resName={resName}"><p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
-        # <input type="submit" id = "like{id}" name = "{name}" value = "LIKE"></p></form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
+        if login:
+            display += '''<form id = "dishDisplay" method = POST action = "lookup.cgi?resName={resName}">
+                            <p value = "{id}">{name} &nbsp <span><b>{likes}</b></span>  &nbsp 
+                            <input type="submit" id = "like{id}" name = "{name}" value = "LIKE"></p>
+                          </form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
+        else:
+            display += '''<form id = "dishDisplay" method = POST action = "lookup.cgi?resName={resName}">
+                            <p value = "{id}">{name} &nbsp <span><b>{likes} Likes</b></span></p>
+                          </form>'''.format(id=dishID, name=dishName, likes=dishLikes, resName=resName)
 
     return display
 
@@ -171,7 +196,8 @@ def displayResult(resultSet,info):
         display = "<h3>Restaurants that have {dish} ranked by # of likes</h3>".format(dish = info)
         for re in resultSet:
             display += '''<p><a href="lookup.cgi?resName={resName}">{resName}</a>
-            <span>{number} likes</span>'''.format(resName=re,number=0)
+            <span>{dishName}</span>
+            <span> {number} likes</span>'''.format(resName=re['resN'], dishName = re['dishN'], number=re['likes'])
         return display
 
 

@@ -8,14 +8,23 @@ import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 import search
+import json
+
+my_sess_dir = '/students/wzhang2/public_html/cgi-bin/beta/session/'
 
 # this is the file for general search page
 def main():
-	dsn = dbconn2.read_cnf(".my.cnf")
-	dsn['db'] = 'twen2_db'
-	dsn['host'] = 'localhost'
-	conn = dbconn2.connect(dsn)
-	conn.autocommit(True)
+	sessid = cgi_utils_sda.session_id()
+	sess_data = cgi_utils_sda.session_start(my_sess_dir,sessid)
+	print 
+
+	conn = search.init()
+	# print sess_data['logged_in']
+	# create the button to go back to home page depending on if the user login or not
+	if sess_data['logged_in']:
+		choices = '''<ul><li><a href="homeLogin.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
+	else:
+		choices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
 
 	form_data = cgi.FieldStorage()
 	display = ""
@@ -68,10 +77,6 @@ def main():
 	<p><input type="submit" name="generalS" value="Search"></form>
 	'''.format(locaOptions=locaOptions,cuisineOptions=cuisineOptions)
 
-# create the button to go back to home page
-	choices = '''<ul>
-	<li><a href="home.cgi"><span id = "mainName">Back to Home Page</span>
-	</ul>'''
 # render the page in template
 	page = tmpl.render(intro = intro, searchForm = form, result = display, bottons = choices)
 	return page

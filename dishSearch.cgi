@@ -8,21 +8,24 @@ import dbconn2
 import MySQLdb
 from jinja2 import Environment, FileSystemLoader
 import search
+import json
+
+my_sess_dir = '/students/wzhang2/public_html/cgi-bin/beta/session/'
 
 # this is the cgi for dish search
 def main():
-    dsn = dbconn2.read_cnf(".my.cnf")
-    dsn['db'] = 'twen2_db'
-    dsn['host'] = 'localhost'
-    conn = dbconn2.connect(dsn)
-    conn.autocommit(True)
+	sessid = cgi_utils_sda.session_id()
+	sess_data = cgi_utils_sda.session_start(my_sess_dir,sessid)
+	print
 
-    form_data = cgi.FieldStorage()
+	conn = search.init()
+
+	form_data = cgi.FieldStorage()
 
 	# if dish search form is submitted
-    if ("dishS" in form_data):
+	if ("dishS" in form_data):
 		# if dish is entered
-        if ("dish" in form_data):
+		if ("dish" in form_data):
 			# search all restaurant with dishes similar to the dish name entered
 			allResults = search.dishSearch(conn, form_data)
 			dishname = cgi.escape(form_data.getfirst("dish"))
@@ -37,7 +40,6 @@ def main():
 	else:
 		display = ""
 
-
 	env = Environment(loader=FileSystemLoader('./'))
 	tmpl = env.get_template('template.html')
 
@@ -46,31 +48,21 @@ def main():
     <br><p><i>Search for an ideal restaurant based on your favorite dish</i>'''
 
     # create the dish search form
-    form = '''<form id= "dishSearch" method=POST action="dishSearch.cgi">
-    <p>Enter the dish name:
-    <input type="text" name="dish">
-    <input type="submit" name="dishS" value="Search"></form>'''
-
-    oreo = cgi_utils_sda.getCookieFromRequest('user')
-    userInfo = ""
-    logoutForm = ""
-    if oreo != None:
-        user = oreo.value
-        userInfo = "Logged in as " + user
-        logoutForm = '''<form id="logout" method=POST action="homeLogin.cgi" style="text-indent: 10px">
-                    <input type="submit" name="logout" value="Logout"></form>'''
-        choices = '''<ul><li><a href="homeLogin.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
-        print user
-    else:
-    	choices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
-
+	form = '''<form id= "dishSearch" method=POST action="dishSearch.cgi">
+	<p>Enter the dish name:
+	<input type="text" name="dish">
+	<input type="submit" name="dishS" value="Search"></form>'''
+	
 	# create the button to go back to home page
-	# choices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
+	if sess_data['logged_in']:
+		choices = '''<ul><li><a href="homeLogin.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
+	else:
+		choices = '''<ul><li><a href="home.cgi"><span id = "mainName">Back to Home Page</span></ul>'''
 
 	# render the page in template
 
-    page = tmpl.render(intro = intro, searchForm = form,result = display, bottons = choices, userInfo = userInfo, form = logoutForm)
-    return page
+	page = tmpl.render(intro = intro, searchForm = form,result = display, bottons = choices)
+	return page
 
 if __name__ == '__main__':
 	print 'Content-type: text/html\n'

@@ -15,7 +15,7 @@ def main():
 	choices = '''<ul>
 	<li><a href="genSearch.cgi"><span id = "mainName">General Search</span>
 	  <br><br>Search for an ideal restaurant based on location and type</a>
-	<li><a href="dishSearch.cgi"><span id = "mainName">Dishes Search</span>
+	<li><a href="dishSearch.cgi"><span id = "mainName">Dish Search</span>
 	  <br><br>Search for an ideal restaurant based on your favorite dish</a>
 	<li><a href="lookRes.cgi"><span id = "mainName">Look into Restaurant</span>
 	  <br><br>Learn more about specific restaurants</a>
